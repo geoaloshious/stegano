@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.geoaloshious.stegano.home"
+    tools:showIn="@layout/app_bar_home">
+
+
+    <TextView
+        android:id="@+id/tv_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="40dp"
+        android:text="PROFILE"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"/>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/tv_profile"
+        android:layout_marginTop="40dp"
+        android:text="Name"
+        android:textColor="@android:color/black"/>
+
+    <TextView
+        android:id="@+id/tv_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_name"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="10dp"
+        android:text="Gender"
+        android:textColor="@android:color/black"/>
+
+    <TextView
+        android:id="@+id/tv_dob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_gender"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="10dp"
+        android:text="D.O.B"
+        android:textColor="@android:color/black"/>
+
+    <TextView
+        android:id="@+id/tv_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_dob"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="10dp"
+        android:text="Phone No."
+        android:textColor="@android:color/black"/>
+
+    <TextView
+        android:id="@+id/tv_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_phone"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="40dp"
+        android:text="Email"
+        android:textColor="@android:color/black"/>
+
+    <TextView
+        android:id="@+id/tv_name2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="115dp"
+        android:layout_marginLeft="120dp"/>
+
+    <TextView
+        android:id="@+id/tv_gender2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="170dp"
+        android:layout_marginLeft="120dp"/>
+
+    <TextView
+        android:id="@+id/tv_dob2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="230dp"
+        android:layout_marginLeft="120dp"/>
+
+    <TextView
+        android:id="@+id/tv_phone2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="290dp"
+        android:layout_marginLeft="120dp"/>
+
+    <TextView
+        android:id="@+id/tv_email2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="347dp"
+        android:layout_marginLeft="120dp"/>
+</RelativeLayout>
