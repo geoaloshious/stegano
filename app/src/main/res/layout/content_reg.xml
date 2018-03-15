@@ -17,7 +17,7 @@
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="40dp"
             android:text="@string/name"
             android:textColor="@android:color/black" />
@@ -26,9 +26,8 @@
             android:id="@+id/tv_gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_name"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="100dp"
             android:text="@string/gender"
             android:textColor="@android:color/black" />
 
@@ -36,9 +35,8 @@
             android:id="@+id/tv_dob"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_gender"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="160dp"
             android:text="@string/dob"
             android:textColor="@android:color/black" />
 
@@ -46,9 +44,8 @@
             android:id="@+id/tv_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_dob"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="220dp"
             android:text="@string/phone"
             android:textColor="@android:color/black" />
 
@@ -56,9 +53,8 @@
             android:id="@+id/tv_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_phone"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="280dp"
             android:text="@string/email"
             android:textColor="@android:color/black" />
 
@@ -66,9 +62,8 @@
             android:id="@+id/tv_uname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_email"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="340dp"
             android:text="@string/username"
             android:textColor="@android:color/black" />
 
@@ -76,9 +71,8 @@
             android:id="@+id/tv_pwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_uname"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="400dp"
             android:text="@string/password"
             android:textColor="@android:color/black" />
 
@@ -86,9 +80,8 @@
             android:id="@+id/tv_repwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_pwd"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="460dp"
             android:text="@string/re_type"
             android:textColor="@android:color/black" />
 
@@ -96,17 +89,15 @@
             android:id="@+id/et_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/tv_name"
-            android:layout_toEndOf="@+id/tv_uname"
-            android:layout_toRightOf="@+id/tv_uname"
+            android:layout_marginTop="17dp"
+            android:layout_marginLeft="80dp"
             android:ems="10"
             android:inputType="textPersonName"/>
 <RadioGroup
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_above="@+id/tv_dob"
-    android:layout_alignLeft="@+id/et_name"
-    android:layout_alignStart="@+id/et_name"
+    android:layout_marginTop="92dp"
+    android:layout_marginLeft="80dp"
     android:orientation="horizontal"
     android:id="@+id/rg_gender">
 
@@ -130,8 +121,8 @@
             android:id="@+id/et_dob"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/tv_phone"
-            android:layout_centerHorizontal="true"
+            android:layout_marginTop="135dp"
+            android:layout_marginLeft="80dp"
             android:ems="10"
             android:inputType="date" />
 
@@ -139,9 +130,8 @@
             android:id="@+id/et_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/tv_email"
-            android:layout_alignLeft="@+id/et_dob"
-            android:layout_alignStart="@+id/et_dob"
+            android:layout_marginTop="195dp"
+            android:layout_marginLeft="80dp"
             android:ems="10"
             android:inputType="phone" />
 
@@ -149,9 +139,8 @@
             android:id="@+id/et_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/tv_uname"
-            android:layout_alignEnd="@+id/et_phone"
-            android:layout_alignRight="@+id/et_phone"
+            android:layout_marginTop="254dp"
+            android:layout_marginLeft="80dp"
             android:ems="10"
             android:inputType="textEmailAddress" />
 
@@ -159,9 +148,8 @@
             android:id="@+id/et_uname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/tv_uname"
-            android:layout_toEndOf="@+id/tv_uname"
-            android:layout_toRightOf="@+id/tv_uname"
+            android:layout_marginTop="315dp"
+            android:layout_marginLeft="81dp"
             android:ems="10"
             android:inputType="textPersonName"/>
 
@@ -169,9 +157,8 @@
             android:id="@+id/et_pwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/tv_pwd"
-            android:layout_toEndOf="@+id/tv_uname"
-            android:layout_toRightOf="@+id/tv_uname"
+            android:layout_marginTop="375dp"
+            android:layout_marginLeft="80dp"
             android:ems="10"
             android:inputType="numberPassword" />
 
@@ -179,8 +166,8 @@
             android:id="@+id/et_repwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/bt_signup"
-            android:layout_centerHorizontal="true"
+            android:layout_marginTop="434dp"
+            android:layout_marginLeft="80dp"
             android:ems="10"
             android:inputType="numberPassword" />
 
@@ -189,11 +176,8 @@
             android:layout_width="50dp"
             android:layout_height="25dp"
             android:background="@android:color/background_dark"
-            android:layout_alignBottom="@+id/et_pwd"
-            android:layout_marginLeft="9dp"
-            android:layout_marginStart="9dp"
-            android:layout_toEndOf="@+id/et_pwd"
-            android:layout_toRightOf="@+id/et_pwd"
+            android:layout_marginTop="395dp"
+            android:layout_marginLeft="300dp"
             android:text="OK"
             android:textColor="@android:color/white"/>
         <Button
@@ -201,7 +185,7 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:background="@android:color/background_dark"
-            android:layout_below="@+id/tv_repwd"
+            android:layout_marginTop="490dp"
             android:layout_centerHorizontal="true"
             android:text="SIGNUP"
             android:textColor="@android:color/white"/>

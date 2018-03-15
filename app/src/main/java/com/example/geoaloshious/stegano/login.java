@@ -162,7 +162,7 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
                             Toast.makeText(login.this, "Logged In", Toast.LENGTH_SHORT).show();
                         } else
                         {
-                            showError2();
+                            et_pwd.setError("Invalid Password");
                             et_pwd.setText("");
                         }
                     }
@@ -182,14 +182,14 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
                         }
                         else
                         {
-                            showError2();
+                            et_pwd.setError("Invalid Password");
                             et_pwd.setText("");
                         }
                     }
                 }
                 else
                 {
-                    showError1();
+                    et_uname.setError("Invalid Username");
                     et_uname.setText("");
                     et_pwd.setText("");
                 }
@@ -224,24 +224,12 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
             a2[i]=pos;
         }
         StringBuilder strNum=new StringBuilder();
-        for(int num : a2)
+        for(int num :  a2)
         {
             strNum.append(num);
         }
         String guess=String.valueOf(strNum);
         return guess;
-    }
-    private void showError1()
-    {
-        Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
-        et_uname.startAnimation(shake);
-        et_uname.setError("Invalid Username");
-    }
-    private void showError2()
-    {
-        Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
-        et_pwd.startAnimation(shake);
-        et_pwd.setError("Invalid Password");
     }
     @Override
     public void onBackPressed()
