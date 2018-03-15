@@ -15,6 +15,8 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -150,12 +152,17 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
                         String pwd2 = convrt(pwd);
                         if (pwd2.equals(pass))
                         {
+                            String  sh_name = "MYDATA";
+                            SharedPreferences   sh= getSharedPreferences(sh_name , Context.MODE_PRIVATE);
+                            SharedPreferences.Editor   editor = sh.edit();
+                            editor.putString("key1",uname);
+                            editor.commit();
                             Intent i1 = new Intent(login.this, home.class);
                             startActivity(i1);
                             Toast.makeText(login.this, "Logged In", Toast.LENGTH_SHORT).show();
                         } else
                         {
-                            Toast.makeText(login.this, "Invalid Password", Toast.LENGTH_SHORT).show();
+                            showError2();
                             et_pwd.setText("");
                         }
                     }
@@ -175,14 +182,14 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
                         }
                         else
                         {
-                            Toast.makeText(login.this,"Invalid Password", Toast.LENGTH_SHORT).show();
+                            showError2();
                             et_pwd.setText("");
                         }
                     }
                 }
                 else
                 {
-                    Toast.makeText(login.this,"Invalid Username", Toast.LENGTH_SHORT).show();
+                    showError1();
                     et_uname.setText("");
                     et_pwd.setText("");
                 }
@@ -223,6 +230,18 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
         }
         String guess=String.valueOf(strNum);
         return guess;
+    }
+    private void showError1()
+    {
+        Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+        et_uname.startAnimation(shake);
+        et_uname.setError("Invalid Username");
+    }
+    private void showError2()
+    {
+        Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+        et_pwd.startAnimation(shake);
+        et_pwd.setError("Invalid Password");
     }
     @Override
     public void onBackPressed()
