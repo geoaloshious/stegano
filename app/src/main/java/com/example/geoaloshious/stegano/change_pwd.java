@@ -31,11 +31,11 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
     Switch stegano=null;
     boolean swstate=false;
     RelativeLayout rv_round;
-    Button bt_ok_old,bt_ok_new,bt_save;
+    Button bt_ok_old,bt_ok_new,bt_save,bt_cancel;
     EditText et_old,et_new,et_renew;
     TextView tv_change_pwd;
     DBConnection db = new DBConnection(change_pwd.this);
-    String oldpwd,newpwd,newpwd2="",renewpwd,pass,uname,oldp,newp;
+    String oldpwd,newpwd,newpwd2="",renewpwd,pass,uname,newp;
     RecyclerView rv_sample;
     private SensorManager mSensorManager;
     private Sensor mSensor;
@@ -63,6 +63,8 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
         bt_ok_new.setOnClickListener(this);
         bt_save=(Button)findViewById(R.id.bt_save);
         bt_save.setOnClickListener(this);
+        bt_cancel=(Button)findViewById(R.id.bt_cancel);
+        bt_cancel.setOnClickListener(this);
         et_new=(EditText)findViewById(R.id.et_new);
         et_new.setFocusable(false);
         et_renew=(EditText)findViewById(R.id.et_renew);
@@ -96,6 +98,11 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
     public void onClick(View view) {
         switch(view.getId())
         {
+            case R.id.bt_cancel:
+                Intent i6 = new Intent(change_pwd.this, home.class);
+                startActivity(i6);
+                finish();
+                break;
             case R.id.bt_ok_old:
                 oldpwd=et_old.getText().toString();
                 String  sh_name ="MYDATA";
@@ -141,6 +148,7 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
                         et_old.setText("");
                     }
                 }
+                bt_ok_old.setEnabled(false);
                 break;
             case R.id.bt_ok_new:
                 newpwd=et_new.getText().toString();
@@ -156,24 +164,25 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
                 et_renew.setFocusableInTouchMode(true);
                 et_renew.requestFocus();
                 et_new.setFocusable(false);
+                bt_ok_new.setEnabled(false);
                 break;
             case R.id.bt_save:
                 renewpwd=et_renew.getText().toString();
                 if(flag1==1)
                 {
-                    oldp=newpwd2;
+                    newp=newpwd2;
                 }
                 else
                 {
-                    oldp=newpwd;
+                    newp=newpwd;
                 }
                 if(swstate)
                 {
                     String renewp2=convrt(renewpwd);
-                    if(oldp.equals(renewp2))
+                    if(newp.equals(renewp2))
                     {
                         db.openConnection();
-                        String query2="update tbl_stegno set password='"+oldp+"' where uname='"+uname+"'";
+                        String query2="update tbl_stegno set password='"+newp+"' where uname='"+uname+"'";
                         db.insertData(query2);
                         db.closeConnection();
                         Toast.makeText(change_pwd.this,"Password Changed", Toast.LENGTH_SHORT).show();
@@ -183,16 +192,16 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
                     }
                     else
                     {
-                        et_old.setError("Passwords didn't match");
-                        et_old.setText("");
+                        et_renew.setError("Passwords didn't match");
+                        et_renew.setText("");
                     }
                 }
                 else
                 {
-                    if(oldp.equals(renewpwd))
+                    if(newp.equals(renewpwd))
                     {
                         db.openConnection();
-                        String query2="update tbl_stegno set password='"+oldp+"' where uname='"+uname+"'";
+                        String query2="update tbl_stegno set password='"+newp+"' where uname='"+uname+"'";
                         db.insertData(query2);
                         db.closeConnection();
                         Toast.makeText(change_pwd.this,"Password Changed", Toast.LENGTH_SHORT).show();

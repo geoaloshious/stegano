@@ -160,7 +160,7 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
                 et_repwd.setFocusableInTouchMode(true);
                 et_repwd.requestFocus();
                 et_pwd.setFocusable(false);
-                bt_ok.setVisibility(View.INVISIBLE);
+                bt_ok.setEnabled(false);
                 break;
             case R.id.bt_signup:
                 name=et_name.getText().toString();
@@ -223,7 +223,8 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
                 }
                 else
                 {
-                    Toast.makeText(reg.this,"Username exists", Toast.LENGTH_SHORT).show();
+                    et_uname.setError("username already exists");
+                    et_uname.setText("");
                 }
                 break;
         }

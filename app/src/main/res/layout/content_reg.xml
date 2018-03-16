@@ -124,7 +124,8 @@
             android:layout_marginTop="135dp"
             android:layout_marginLeft="80dp"
             android:ems="10"
-            android:inputType="date" />
+            android:inputType="date"
+            android:hint="dd/mm/yyyy"/>
 
         <EditText
             android:id="@+id/et_phone"

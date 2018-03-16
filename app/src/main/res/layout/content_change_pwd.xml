@@ -13,8 +13,9 @@
     android:layout_height="match_parent">
     <EditText
         android:id="@+id/et_old"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="330dp"
+        android:layout_height="40dp"
+        android:background="@drawable/box_bg"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/rv_round"
@@ -22,7 +23,8 @@
         android:layout_marginTop="60dp"
         android:ems="10"
         android:inputType="numberPassword"
-        android:hint="old password"/>
+        android:hint="old password"
+        android:paddingLeft="10dp"/>
 
     <Button
         android:id="@+id/bt_ok_old"
@@ -30,33 +32,37 @@
         android:layout_height="30dp"
         android:layout_marginTop="65dp"
         android:layout_marginLeft="290dp"
-        android:background="#075e54"
+        android:background="@android:color/transparent"
         android:text="OK"
-        android:textColor="@android:color/white" />
+        android:textColor="#075e54" />
 
     <EditText
         android:id="@+id/et_new"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="330dp"
+        android:layout_height="40dp"
+        android:background="@drawable/box_bg"
         android:layout_alignLeft="@+id/et_old"
         android:layout_alignStart="@+id/et_old"
         android:layout_below="@+id/et_old"
         android:layout_marginTop="24dp"
         android:ems="10"
         android:inputType="numberPassword"
-        android:hint="new password"/>
+        android:hint="new password"
+        android:paddingLeft="10dp"/>
 
     <EditText
         android:id="@+id/et_renew"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="330dp"
+        android:layout_height="40dp"
+        android:background="@drawable/box_bg"
         android:layout_alignLeft="@+id/et_new"
         android:layout_alignStart="@+id/et_new"
         android:layout_below="@+id/et_new"
         android:layout_marginTop="30dp"
         android:ems="10"
         android:inputType="numberPassword"
-        android:hint="retype password"/>
+        android:hint="retype password"
+        android:paddingLeft="10dp"/>
 
     <Button
         android:id="@+id/bt_save"
@@ -65,7 +71,7 @@
         android:layout_below="@+id/et_renew"
         android:layout_marginLeft="200dp"
         android:layout_marginTop="30dp"
-        android:background="@android:color/white"
+        android:background="@drawable/button_bg"
         android:text="SAVE"
         android:textColor="#075e54"
         android:textSize="18dp"
@@ -77,9 +83,9 @@
         android:layout_height="30dp"
         android:layout_marginTop="132dp"
         android:layout_marginLeft="290dp"
-        android:background="#075e54"
+        android:background="@android:color/transparent"
         android:text="OK"
-        android:textColor="@android:color/white" />
+        android:textColor="#075e54" />
 
     <Button
         android:id="@+id/bt_cancel"
@@ -88,7 +94,7 @@
         android:layout_below="@+id/et_renew"
         android:layout_marginLeft="72dp"
         android:layout_marginTop="30dp"
-        android:background="@android:color/white"
+        android:background="@drawable/button_bg"
         android:text="CANCEL"
         android:textColor="#075e54"
         android:textSize="18dp"

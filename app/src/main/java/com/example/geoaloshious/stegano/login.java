@@ -36,7 +36,6 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
     boolean swstate=false;
     RelativeLayout rv_round;
     Button bt_login,bt_signup;
-    TextView tv_login;
     EditText et_uname,et_pwd;
     String uname,pwd,pass,geo="geo",g="g",dpwd="1234";
     int flag=0;
@@ -66,8 +65,6 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
         bt_signup.setOnClickListener(this);
         bt_login=(Button)findViewById(R.id.bt_login);
         bt_login.setOnClickListener(this);
-        tv_login=(TextView)findViewById(R.id.tv_login);
-        tv_login.setVisibility(View.VISIBLE);
         et_uname=(EditText)findViewById(R.id.et_uname);
         et_pwd=(EditText)findViewById(R.id.et_pwd);
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -113,13 +110,11 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
         if(swstate)
         {
             rv_round.setVisibility(View.VISIBLE);
-            tv_login.setVisibility(View.GONE);
             Toast.makeText(login.this,"Security turned on", Toast.LENGTH_SHORT).show();
         }
         else
         {
             rv_round.setVisibility(View.GONE);
-            tv_login.setVisibility(View.VISIBLE);
             Toast.makeText(login.this,"Security turned off", Toast.LENGTH_SHORT).show();
         }
     }
