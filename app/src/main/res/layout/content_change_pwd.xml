@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="100dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.geoaloshious.stegano.change_pwd"
+    tools:showIn="@layout/activity_change_pwd">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/et_old"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/rv_round"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="60dp"
+        android:ems="10"
+        android:inputType="numberPassword"
+        android:hint="old password"/>
+
+    <Button
+        android:id="@+id/bt_ok_old"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginLeft="290dp"
+        android:background="#075e54"
+        android:text="OK"
+        android:textColor="@android:color/white" />
+
+    <EditText
+        android:id="@+id/et_new"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/et_old"
+        android:layout_alignStart="@+id/et_old"
+        android:layout_below="@+id/et_old"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="numberPassword"
+        android:hint="new password"/>
+
+    <EditText
+        android:id="@+id/et_renew"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/et_new"
+        android:layout_alignStart="@+id/et_new"
+        android:layout_below="@+id/et_new"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:inputType="numberPassword"
+        android:hint="retype password"/>
+
+    <Button
+        android:id="@+id/bt_save"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_below="@+id/et_renew"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="30dp"
+        android:background="@android:color/white"
+        android:text="SAVE"
+        android:textColor="#075e54"
+        android:textSize="18dp"
+        android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/bt_ok_new"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="132dp"
+        android:layout_marginLeft="290dp"
+        android:background="#075e54"
+        android:text="OK"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/bt_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_below="@+id/et_renew"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="30dp"
+        android:background="@android:color/white"
+        android:text="CANCEL"
+        android:textColor="#075e54"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+</RelativeLayout>
+</android.support.v4.widget.NestedScrollView>

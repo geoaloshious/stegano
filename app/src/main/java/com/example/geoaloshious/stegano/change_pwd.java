@@ -8,10 +8,13 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -24,27 +27,27 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class change_password extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener, SensorEventListener {
+public class change_pwd extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener, SensorEventListener {
     Switch stegano=null;
     boolean swstate=false;
     RelativeLayout rv_round;
-    Button bt_check,bt_save;
-    EditText et_current,et_new;
-    TextView tv_change_password;
-    DBConnection db = new DBConnection(change_password.this);
-    String currentp,newp,pass,uname;
+    Button bt_ok_old,bt_ok_new,bt_save;
+    EditText et_old,et_new,et_renew;
+    TextView tv_change_pwd;
+    DBConnection db = new DBConnection(change_pwd.this);
+    String oldpwd,newpwd,newpwd2="",renewpwd,pass,uname,oldp,newp;
     RecyclerView rv_sample;
     private SensorManager mSensorManager;
     private Sensor mSensor;
     Adapter3 adp;
     List<Beanclass3> b;
     int a[]=new int[10];
-    int ld=0,s=0,guessed=0,i1,pos,flag=0;
+    int ld=0,s=0,guessed=0,i1,pos,flag=0,flag1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_password);
+        setContentView(R.layout.activity_change_pwd);
         rv_sample=(RecyclerView)findViewById(R.id.rv_sample);
         rv_sample.setLayoutManager(new GridLayoutManager(this, 3));
         rv_sample.setVisibility(View.INVISIBLE);
@@ -54,15 +57,20 @@ public class change_password extends AppCompatActivity implements CompoundButton
         stegano.setOnCheckedChangeListener(this);
         rv_round=(RelativeLayout)findViewById(R.id.rv_round);
         rv_round.setVisibility(View.GONE);
-        bt_check=(Button)findViewById(R.id.bt_check);
-        bt_check.setOnClickListener(this);
+        bt_ok_old=(Button)findViewById(R.id.bt_ok_old);
+        bt_ok_old.setOnClickListener(this);
+        bt_ok_new=(Button)findViewById(R.id.bt_ok_new);
+        bt_ok_new.setOnClickListener(this);
         bt_save=(Button)findViewById(R.id.bt_save);
         bt_save.setOnClickListener(this);
-        et_current=(EditText)findViewById(R.id.et_current);
         et_new=(EditText)findViewById(R.id.et_new);
         et_new.setFocusable(false);
-        tv_change_password=(TextView)findViewById(R.id.tv_change_password);
-        tv_change_password.setVisibility(View.VISIBLE);
+        et_renew=(EditText)findViewById(R.id.et_renew);
+        et_renew.setFocusable(false);
+        et_old=(EditText)findViewById(R.id.et_old);
+        et_old.setFocusable(true);
+        tv_change_pwd=(TextView)findViewById(R.id.tv_change_pwd);
+        tv_change_pwd.setVisibility(View.VISIBLE);
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
     }
@@ -73,14 +81,14 @@ public class change_password extends AppCompatActivity implements CompoundButton
         if(swstate)
         {
             rv_round.setVisibility(View.VISIBLE);
-            tv_change_password.setVisibility(View.GONE);
-            Toast.makeText(change_password.this,"Security turned on", Toast.LENGTH_SHORT).show();
+            tv_change_pwd.setVisibility(View.GONE);
+            Toast.makeText(change_pwd.this,"Security turned on", Toast.LENGTH_SHORT).show();
         }
         else
         {
             rv_round.setVisibility(View.GONE);
-            tv_change_password.setVisibility(View.VISIBLE);
-            Toast.makeText(change_password.this,"Security turned off", Toast.LENGTH_SHORT).show();
+            tv_change_pwd.setVisibility(View.VISIBLE);
+            Toast.makeText(change_pwd.this,"Security turned off", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -88,8 +96,8 @@ public class change_password extends AppCompatActivity implements CompoundButton
     public void onClick(View view) {
         switch(view.getId())
         {
-            case R.id.bt_check:
-                currentp=et_current.getText().toString();
+            case R.id.bt_ok_old:
+                oldpwd=et_old.getText().toString();
                 String  sh_name ="MYDATA";
                 SharedPreferences sh=getSharedPreferences(sh_name, Context.MODE_PRIVATE);
                 uname = sh.getString("key1",null);
@@ -106,56 +114,97 @@ public class change_password extends AppCompatActivity implements CompoundButton
                 db.closeConnection();
                 if(swstate)
                 {
-                    String currentp1=convrt(currentp);
+                    String currentp1=convrt(oldpwd);
                     if(currentp1.equals(pass))
                     {
                         et_new.setFocusableInTouchMode(true);
                         et_new.requestFocus();
-                        et_current.setFocusable(false);
+                        et_old.setFocusable(false);
                     }
                     else
                     {
-                        Toast.makeText(change_password.this,"Incorrect Password", Toast.LENGTH_SHORT).show();
+                        et_old.setError("Incorrect Password");
+                        et_old.setText("");
                     }
                 }
                 else
                 {
-                    if(currentp.equals(pass))
+                    if(oldpwd.equals(pass))
                     {
                         et_new.setFocusableInTouchMode(true);
                         et_new.requestFocus();
-                        et_current.setFocusable(false);
+                        et_old.setFocusable(false);
                     }
                     else
                     {
-                        Toast.makeText(change_password.this,"Incorrect Password", Toast.LENGTH_SHORT).show();
+                        et_old.setError("Incorrect Password");
+                        et_old.setText("");
                     }
                 }
                 break;
-            case R.id.bt_save:
-                newp=et_new.getText().toString();
+            case R.id.bt_ok_new:
+                newpwd=et_new.getText().toString();
                 if(swstate)
                 {
-                    String newp2=convrt(newp);
-                    db.openConnection();
-                    String query2="update tbl_stegno set password='"+newp2+"' where uname='"+uname+"'";
-                    db.insertData(query2);
-                    db.closeConnection();
-                    Toast.makeText(change_password.this,"Password Changed", Toast.LENGTH_SHORT).show();
-                    Intent i1 = new Intent(change_password.this, home.class);
-                    startActivity(i1);
-                    finish();
+                    newpwd2=convrt(newpwd);
+                    flag1=1;
                 }
                 else
                 {
-                    db.openConnection();
-                    String query2="update tbl_stegno set password='"+newp+"' where uname='"+uname+"'";
-                    db.insertData(query2);
-                    db.closeConnection();
-                    Toast.makeText(change_password.this,"Password Changed", Toast.LENGTH_SHORT).show();
-                    Intent i1 = new Intent(change_password.this, home.class);
-                    startActivity(i1);
-                    finish();
+                    flag1=0;
+                }
+                et_renew.setFocusableInTouchMode(true);
+                et_renew.requestFocus();
+                et_new.setFocusable(false);
+                break;
+            case R.id.bt_save:
+                renewpwd=et_renew.getText().toString();
+                if(flag1==1)
+                {
+                    oldp=newpwd2;
+                }
+                else
+                {
+                    oldp=newpwd;
+                }
+                if(swstate)
+                {
+                    String renewp2=convrt(renewpwd);
+                    if(oldp.equals(renewp2))
+                    {
+                        db.openConnection();
+                        String query2="update tbl_stegno set password='"+oldp+"' where uname='"+uname+"'";
+                        db.insertData(query2);
+                        db.closeConnection();
+                        Toast.makeText(change_pwd.this,"Password Changed", Toast.LENGTH_SHORT).show();
+                        Intent i1 = new Intent(change_pwd.this, home.class);
+                        startActivity(i1);
+                        finish();
+                    }
+                    else
+                    {
+                        et_old.setError("Passwords didn't match");
+                        et_old.setText("");
+                    }
+                }
+                else
+                {
+                    if(oldp.equals(renewpwd))
+                    {
+                        db.openConnection();
+                        String query2="update tbl_stegno set password='"+oldp+"' where uname='"+uname+"'";
+                        db.insertData(query2);
+                        db.closeConnection();
+                        Toast.makeText(change_pwd.this,"Password Changed", Toast.LENGTH_SHORT).show();
+                        Intent i1 = new Intent(change_pwd.this, home.class);
+                        startActivity(i1);
+                        finish();
+                    }
+                    else
+                    {
+                        et_renew.setError("Passwords didn't match");
+                        et_renew.setText("");
+                    }
                 }
                 break;
         }
@@ -226,8 +275,9 @@ public class change_password extends AppCompatActivity implements CompoundButton
     @Override
     public void onBackPressed()
     {
-        Intent i2 = new Intent(change_password.this,home.class);
+        Intent i2 = new Intent(change_pwd.this,home.class);
         startActivity(i2);
         finish();
     }
 }
+

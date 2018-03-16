@@ -23,14 +23,14 @@
             android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
     </RelativeLayout>
     <TextView
-        android:id="@+id/tv_signup"
-        android:layout_width="200dp"
+        android:id="@+id/tv_change_pwd"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text="@string/signup"
+        android:layout_marginTop="40dp"
+        android:text="CHANGE PASSWORD"
         android:textAllCaps="true"
-        android:textSize="35sp"
+        android:textSize="25sp"
         android:textStyle="bold"
         android:textColor="#075e54"
         android:gravity="center"/>
@@ -46,6 +46,7 @@
         android:textSize="12sp"
         android:textStyle="bold"/>
 
-    <include layout="@layout/content_reg" />
+    <include layout="@layout/content_change_pwd" />
 </RelativeLayout>
+
 

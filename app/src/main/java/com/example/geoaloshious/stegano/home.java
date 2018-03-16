@@ -114,7 +114,7 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
 
         }
         else if (id == R.id.nav_change_password) {
-            Intent i1 = new Intent(home.this, change_password.class);
+            Intent i1 = new Intent(home.this, change_pwd.class);
             startActivity(i1);
             finish();
 

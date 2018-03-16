@@ -17,9 +17,9 @@ public class Adapter3 extends RecyclerView.Adapter<Adapter3.MyViewHolder> {
     Context context;
     int a[] = {1,2,3,4,5,6,7,8,9,0};
     int b[]=new int[10];
-    public Adapter3(change_password change_password)
+    public Adapter3(change_pwd change_pwd)
     {
-        this.context=change_password;
+        this.context=change_pwd;
     }
     public void rand()
     {

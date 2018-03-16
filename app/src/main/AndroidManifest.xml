@@ -9,13 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".reg"
-            android:label="@string/title_activity_reg"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".login"
-            android:theme="@style/AppTheme">
+        <activity android:name=".reg" />
+        <activity android:name=".login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,10 +19,12 @@
         </activity>
         <activity
             android:name=".home"
-            android:label="Account"
-            android:theme="@style/AppTheme" />
+            android:label="Account" />
         <activity android:name=".edit_profile" />
-        <activity android:name=".change_password" />
+        <activity
+            android:name=".change_pwd"
+            android:label="@string/title_activity_change_pwd"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

@@ -24,4 +24,5 @@
     <string name="large_text">
         Users typically reuse the same personalized identification number (PIN) for multiple systems and in numerous sessions. Direct PIN entries are highly susceptible to shoulder-surfing attacks as attackers can effectively observe PIN entry with concealed cameras. Indirect PIN entry methods proposed as countermeasures are rarely deployed because they demand a heavier cognitive workload for users. To achieve security and usability, we present a practical indirect PIN entry method called SteganoPIN. The human–machine interface of SteganoPIN is two numeric keypads, one covered and the other open, designed to physically block shoulder surfing attacks. After locating a long-term PIN in the more typical layout, through the covered permuted keypad, a user generates a one-time PIN that can safely be entered in plain view of attackers. SteganoPIN is resilient to camera-based shoulder-surfing attacks over multiple authentication sessions. It remains limited to PIN-based authentication.
     </string>
+    <string name="title_activity_change_pwd">change_pwd</string>
 </resources>
