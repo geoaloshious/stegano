@@ -197,8 +197,10 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
                 {
                     if(err==0)
                     {
-                        if (swstate) {
-                            if (pwd.equals(repwd2)) {
+                        if (swstate)
+                        {
+                            if (pwd.equals(repwd2))
+                            {
                                 db.openConnection();
                                 String query = "insert into tbl_stegno(name,gender,dob,phone,email,uname,password) values ('" + name + "','" + gender + "','" + dob + "','" + phone + "','" + email + "','" + uname + "','" + pwd + "')";
                                 db.insertData(query);
@@ -207,11 +209,17 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
                                 Intent i1 = new Intent(reg.this, login.class);
                                 startActivity(i1);
                                 finish();
-                            } else {
-                                Toast.makeText(reg.this, "Failed", Toast.LENGTH_SHORT).show();
                             }
-                        } else {
-                            if (pwd.equals(repwd)) {
+                            else
+                            {
+                                et_repwd.setText("");
+                                et_repwd.setError("Passwords didn't match");
+                            }
+                        }
+                        else
+                        {
+                            if (pwd.equals(repwd))
+                            {
                                 db.openConnection();
                                 String query = "insert into tbl_stegno(name,gender,dob,phone,email,uname,password) values ('" + name + "','" + gender + "','" + dob + "','" + phone + "','" + email + "','" + uname + "','" + pwd + "')";
                                 db.insertData(query);
@@ -220,8 +228,11 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
                                 Intent i1 = new Intent(reg.this, login.class);
                                 startActivity(i1);
                                 finish();
-                            } else {
-                                Toast.makeText(reg.this, "Failed", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            {
+                                et_repwd.setText("");
+                                et_repwd.setError("Passwords didn't match");
                             }
                         }
                     }

@@ -23,7 +23,7 @@ import java.util.Calendar;
 
 public class edit_profile extends AppCompatActivity implements View.OnClickListener
 {
-    Button bt_save;
+    Button bt_save,bt_cancel;
     int count=0;
     RadioGroup rg_gender;
     String name=null,dob=null,gender=null,email=null,phone=null,uname=null;
@@ -43,6 +43,8 @@ public class edit_profile extends AppCompatActivity implements View.OnClickListe
         int day = c.get(Calendar.DAY_OF_MONTH);
         bt_save=(Button)findViewById(R.id.bt_save);
         bt_save.setOnClickListener(this);
+        bt_cancel=(Button)findViewById(R.id.bt_cancel);
+        bt_cancel.setOnClickListener(this);
         et_name=(EditText)findViewById(R.id.et_name);
         et_dob=(EditText)findViewById(R.id.et_dob);
         et_email=(EditText)findViewById(R.id.et_email);
@@ -66,116 +68,126 @@ public class edit_profile extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view)
     {
-        String  sh_name ="MYDATA";
-        SharedPreferences sh=getSharedPreferences(sh_name, Context.MODE_PRIVATE);
-        uname = sh.getString("key1",null);
-        name=et_name.getText().toString();
-        dob=et_dob.getText().toString();
-        phone=et_phone.getText().toString();
-        email=et_email.getText().toString();
-        count=0;
-        if(name.isEmpty())
+        switch(view.getId())
         {
-            count++;
-            db.openConnection();
-            String query1= "select * from tbl_stegno where uname='"+uname+"'";
-            Cursor cursor1 = db.selectData(query1);
-            if(cursor1!=null)
-            {
-                if (cursor1.moveToNext())
+            case R.id.bt_cancel:
+                Intent i6 = new Intent(edit_profile.this, home.class);
+                startActivity(i6);
+                finish();
+                break;
+            case R.id.bt_save:
+                String  sh_name ="MYDATA";
+                SharedPreferences sh=getSharedPreferences(sh_name, Context.MODE_PRIVATE);
+                uname = sh.getString("key1",null);
+                name=et_name.getText().toString();
+                dob=et_dob.getText().toString();
+                phone=et_phone.getText().toString();
+                email=et_email.getText().toString();
+                count=0;
+                if(name.isEmpty())
                 {
-                    name = cursor1.getString(1);
+                    count++;
+                    db.openConnection();
+                    String query1= "select * from tbl_stegno where uname='"+uname+"'";
+                    Cursor cursor1 = db.selectData(query1);
+                    if(cursor1!=null)
+                    {
+                        if (cursor1.moveToNext())
+                        {
+                            name = cursor1.getString(1);
+                        }
+                    }
+                    db.closeConnection();
                 }
-            }
-            db.closeConnection();
-        }
-        if(dob.isEmpty())
-        {
-            count++;
-            db.openConnection();
-            String query2= "select * from tbl_stegno where uname='"+uname+"'";
-            Cursor cursor2 = db.selectData(query2);
-            if(cursor2!=null)
-            {
-                if (cursor2.moveToNext())
+                if(dob.isEmpty())
                 {
-                    dob=cursor2.getString(3);
+                    count++;
+                    db.openConnection();
+                    String query2= "select * from tbl_stegno where uname='"+uname+"'";
+                    Cursor cursor2 = db.selectData(query2);
+                    if(cursor2!=null)
+                    {
+                        if (cursor2.moveToNext())
+                        {
+                            dob=cursor2.getString(3);
+                        }
+                    }
+                    db.closeConnection();
                 }
-            }
-            db.closeConnection();
-        }
-        if(phone.isEmpty())
-        {
-            count++;
-            db.openConnection();
-            String query3= "select * from tbl_stegno where uname='"+uname+"'";
-            Cursor cursor3 = db.selectData(query3);
-            if(cursor3!=null)
-            {
-                if (cursor3.moveToNext())
+                if(phone.isEmpty())
                 {
-                    phone=cursor3.getString(4);
+                    count++;
+                    db.openConnection();
+                    String query3= "select * from tbl_stegno where uname='"+uname+"'";
+                    Cursor cursor3 = db.selectData(query3);
+                    if(cursor3!=null)
+                    {
+                        if (cursor3.moveToNext())
+                        {
+                            phone=cursor3.getString(4);
+                        }
+                    }
+                    db.closeConnection();
                 }
-            }
-            db.closeConnection();
-        }
-        if(email.isEmpty())
-        {
-            count++;
-            db.openConnection();
-            String query4= "select * from tbl_stegno where uname='"+uname+"'";
-            Cursor cursor4 = db.selectData(query4);
-            if(cursor4!=null)
-            {
-                if (cursor4.moveToNext())
+                if(email.isEmpty())
                 {
-                    email=cursor4.getString(5);
+                    count++;
+                    db.openConnection();
+                    String query4= "select * from tbl_stegno where uname='"+uname+"'";
+                    Cursor cursor4 = db.selectData(query4);
+                    if(cursor4!=null)
+                    {
+                        if (cursor4.moveToNext())
+                        {
+                            email=cursor4.getString(5);
+                        }
+                    }
+                    db.closeConnection();
                 }
-            }
-            db.closeConnection();
-        }
-        else
-        {
-            if (email.matches(emailPattern))
-            {
-                flag=0;
-            }
-            else
-            {
-                et_email.setText("");
-                et_email.setError("Invalid email");
-                flag++;
-            }
-        }
-        if(gender==null)
-        {
-            count++;
-            db.openConnection();
-            String query5= "select * from tbl_stegno where uname='"+uname+"'";
-            Cursor cursor5 = db.selectData(query5);
-            if(cursor5!=null)
-            {
-                if (cursor5.moveToNext())
+                else
                 {
-                    gender=cursor5.getString(2);
+                    if (email.matches(emailPattern))
+                    {
+                        flag=0;
+                    }
+                    else
+                    {
+                        et_email.setText("");
+                        et_email.setError("Invalid email");
+                        flag++;
+                    }
                 }
-            }
-            db.closeConnection();
-        }
-        if(flag==0)
-        {
-            db.openConnection();
-            String query2 = "update tbl_stegno set name='" + name + "',dob='" + dob + "',phone='" + phone + "',email='" + email + "',gender='" + gender + "' where uname='" + uname + "'";
-            db.insertData(query2);
-            db.closeConnection();
-            if (count == 5) {
-                Toast.makeText(edit_profile.this, "No changes made", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(edit_profile.this, "Changes saved", Toast.LENGTH_SHORT).show();
-            }
-            Intent i1 = new Intent(edit_profile.this, home.class);
-            startActivity(i1);
-            finish();
+                if(gender==null)
+                {
+                    count++;
+                    db.openConnection();
+                    String query5= "select * from tbl_stegno where uname='"+uname+"'";
+                    Cursor cursor5 = db.selectData(query5);
+                    if(cursor5!=null)
+                    {
+                        if (cursor5.moveToNext())
+                        {
+                            gender=cursor5.getString(2);
+                        }
+                    }
+                    db.closeConnection();
+                }
+                if(flag==0)
+                {
+                    db.openConnection();
+                    String query2 = "update tbl_stegno set name='" + name + "',dob='" + dob + "',phone='" + phone + "',email='" + email + "',gender='" + gender + "' where uname='" + uname + "'";
+                    db.insertData(query2);
+                    db.closeConnection();
+                    if (count == 5) {
+                        Toast.makeText(edit_profile.this, "No changes made", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(edit_profile.this, "Changes saved", Toast.LENGTH_SHORT).show();
+                    }
+                    Intent i1 = new Intent(edit_profile.this, home.class);
+                    startActivity(i1);
+                    finish();
+                }
+                break;
         }
     }
     @Override
