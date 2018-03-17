@@ -10,7 +10,13 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#3F51B5</item>
         <item name="colorPrimaryDark">#075e54</item>
-        <item name="colorAccent">#FF4081</item>
+        <item name="colorAccent">#075e54</item>
         <item name="android:statusBarColor">#075e54</item>
+        <item name="android:colorControlNormal">#075e54</item>
+        <item name="android:colorControlActivated">#075e54</item>
+    </style>
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/spash</item>
+        <item name="colorPrimaryDark">@android:color/white</item>
     </style>
 </resources>

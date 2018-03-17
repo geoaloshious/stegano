@@ -43,7 +43,8 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
     Adapter2 adp;
     List<Beanclass2> b;
     int a[]=new int[10];
-    int ld=0,s=0,guessed=0,i1,pos,flag=0,flg;
+    int ld=0,s=0,guessed=0,i1,pos,flag=0,flg,err;
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,6 +170,16 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
                 email=et_email.getText().toString();
                 uname=et_uname.getText().toString();
                 repwd=et_repwd.getText().toString();
+                if (email.matches(emailPattern))
+                {
+                    err=0;
+                }
+                else
+                {
+                    et_email.setText("");
+                    et_email.setError("Invalid email");
+                    err++;
+                }
                 String repwd2 = convrt(repwd);
                 db.openConnection();
                 String query1= "select * from tbl_stegno where uname='"+uname+"'";
@@ -184,40 +195,34 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
                 db.closeConnection();
                 if(flg==1)
                 {
-                    if(swstate)
+                    if(err==0)
                     {
-                        if(pwd.equals(repwd2))
-                        {
-                            db.openConnection();
-                            String query="insert into tbl_stegno(name,gender,dob,phone,email,uname,password) values ('"+name+"','"+gender+"','"+dob+"','"+phone+"','"+email+"','"+uname+"','"+pwd+"')";
-                            db.insertData(query);
-                            db. closeConnection();
-                            Toast.makeText(reg.this,"Registered", Toast.LENGTH_SHORT).show();
-                            Intent i1 = new Intent(reg.this, login.class);
-                            startActivity(i1);
-                            finish();
-                        }
-                        else
-                        {
-                            Toast.makeText(reg.this,"Failed", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    else
-                    {
-                        if(pwd.equals(repwd))
-                        {
-                            db.openConnection();
-                            String query="insert into tbl_stegno(name,gender,dob,phone,email,uname,password) values ('"+name+"','"+gender+"','"+dob+"','"+phone+"','"+email+"','"+uname+"','"+pwd+"')";
-                            db.insertData(query);
-                            db. closeConnection();
-                            Toast.makeText(reg.this,"Registered", Toast.LENGTH_SHORT).show();
-                            Intent i1 = new Intent(reg.this, login.class);
-                            startActivity(i1);
-                            finish();
-                        }
-                        else
-                        {
-                            Toast.makeText(reg.this,"Failed", Toast.LENGTH_SHORT).show();
+                        if (swstate) {
+                            if (pwd.equals(repwd2)) {
+                                db.openConnection();
+                                String query = "insert into tbl_stegno(name,gender,dob,phone,email,uname,password) values ('" + name + "','" + gender + "','" + dob + "','" + phone + "','" + email + "','" + uname + "','" + pwd + "')";
+                                db.insertData(query);
+                                db.closeConnection();
+                                Toast.makeText(reg.this, "Registered", Toast.LENGTH_SHORT).show();
+                                Intent i1 = new Intent(reg.this, login.class);
+                                startActivity(i1);
+                                finish();
+                            } else {
+                                Toast.makeText(reg.this, "Failed", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            if (pwd.equals(repwd)) {
+                                db.openConnection();
+                                String query = "insert into tbl_stegno(name,gender,dob,phone,email,uname,password) values ('" + name + "','" + gender + "','" + dob + "','" + phone + "','" + email + "','" + uname + "','" + pwd + "')";
+                                db.insertData(query);
+                                db.closeConnection();
+                                Toast.makeText(reg.this, "Registered", Toast.LENGTH_SHORT).show();
+                                Intent i1 = new Intent(reg.this, login.class);
+                                startActivity(i1);
+                                finish();
+                            } else {
+                                Toast.makeText(reg.this, "Failed", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 }

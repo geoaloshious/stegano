@@ -97,7 +97,7 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
         }
         else if (id == R.id.nav_delete_account)
         {
-            new AlertDialog.Builder(this).setTitle("Delete Account")
+            new AlertDialog.Builder(this).setIcon(R.drawable.ic_delete_account).setTitle("Delete Account")
                     .setMessage("Are you sure?")
                     .setPositiveButton("yes", new DialogInterface.OnClickListener() {
                         @Override
@@ -121,7 +121,7 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
         }
         else if (id == R.id.nav_logout)
         {
-            new AlertDialog.Builder(this).setTitle("Logout")
+            new AlertDialog.Builder(this).setIcon(R.drawable.ic_logout).setTitle("Logout")
                     .setMessage("Are you sure?")
                     .setPositiveButton("yes", new DialogInterface.OnClickListener() {
                         @Override

@@ -142,8 +142,8 @@ public class edit_profile extends AppCompatActivity implements View.OnClickListe
             }
             else
             {
-                et_email.setError("Invalid email");
                 et_email.setText("");
+                et_email.setError("Invalid email");
                 flag++;
             }
         }
