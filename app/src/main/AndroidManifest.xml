@@ -10,8 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".reg" />
-        <activity android:name=".login">
-        </activity>
+        <activity android:name=".login"></activity>
         <activity
             android:name=".home"
             android:label="Account" />
@@ -20,7 +19,8 @@
             android:name=".change_pwd"
             android:label="@string/title_activity_change_pwd"
             android:theme="@style/AppTheme" />
-        <activity android:name=".splash_screen"
+        <activity
+            android:name=".splash_screen"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".admin"></activity>
     </application>
 
 </manifest>

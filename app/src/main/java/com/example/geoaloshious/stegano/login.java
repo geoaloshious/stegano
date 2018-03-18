@@ -37,7 +37,7 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
     RelativeLayout rv_round;
     Button bt_login,bt_signup;
     EditText et_uname,et_pwd;
-    String uname,pwd,pass,geo="geo",g="g",dpwd="1234";
+    String uname,pwd,pass,adminu="admin",adminp="0000";
     int flag=0;
     DBConnection db = new DBConnection(login.this);
     RecyclerView rv_sample;
@@ -127,69 +127,78 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
             case R.id.bt_login:
                 uname=et_uname.getText().toString();
                 pwd=et_pwd.getText().toString();
-                db.openConnection();
-                String query1= "select * from tbl_stegno where uname='"+uname+"'";
-                Cursor cursor = db.selectData(query1);
-                if(cursor!=null)
+                if((uname.equals(adminu))&&(pwd.equals(adminp)))
                 {
-                    if(cursor.moveToNext())
-                    {
-                        pass=cursor.getString(7);
-                        flag=1;
-                    }
+                    Intent i2 = new Intent(login.this, admin.class);
+                    startActivity(i2);
+                    finish();
                 }
                 else
                 {
-                    flag=0;
-                }
-                db.closeConnection();
-                if (flag == 1)
-                {
-                    if(swstate)
+                    db.openConnection();
+                    String query1= "select * from tbl_stegno where uname='"+uname+"'";
+                    Cursor cursor = db.selectData(query1);
+                    if(cursor!=null)
                     {
-                        String pwd2 = convrt(pwd);
-                        if (pwd2.equals(pass))
+                        if(cursor.moveToNext())
                         {
-                            String  sh_name = "MYDATA";
-                            SharedPreferences   sh= getSharedPreferences(sh_name , Context.MODE_PRIVATE);
-                            SharedPreferences.Editor   editor = sh.edit();
-                            editor.putString("key1",uname);
-                            editor.commit();
-                            Intent i1 = new Intent(login.this, home.class);
-                            startActivity(i1);
-                            Toast.makeText(login.this, "Logged In", Toast.LENGTH_SHORT).show();
-                        } else
-                        {
-                            et_pwd.setError("Invalid Password");
-                            et_pwd.setText("");
+                            pass=cursor.getString(7);
+                            flag=1;
                         }
                     }
                     else
                     {
-                        if(pwd.equals(pass))
+                        flag=0;
+                    }
+                    db.closeConnection();
+                    if (flag == 1)
+                    {
+                        if(swstate)
                         {
-                            Toast.makeText(login.this,"Logged in", Toast.LENGTH_SHORT).show();
-                            String  sh_name = "MYDATA";
-                            SharedPreferences   sh= getSharedPreferences(sh_name , Context.MODE_PRIVATE);
-                            SharedPreferences.Editor   editor = sh.edit();
-                            editor.putString("key1",uname);
-                            editor.commit();
-                            Intent i3 = new Intent(login.this, home.class);
-                            startActivity(i3);
-                            finish();
+                            String pwd2 = convrt(pwd);
+                            if (pwd2.equals(pass))
+                            {
+                                String  sh_name = "MYDATA";
+                                SharedPreferences   sh= getSharedPreferences(sh_name , Context.MODE_PRIVATE);
+                                SharedPreferences.Editor   editor = sh.edit();
+                                editor.putString("key1",uname);
+                                editor.commit();
+                                Intent i1 = new Intent(login.this, home.class);
+                                startActivity(i1);
+                                Toast.makeText(login.this, "Logged In", Toast.LENGTH_SHORT).show();
+                            } else
+                            {
+                                et_pwd.setError("Invalid Password");
+                                et_pwd.setText("");
+                            }
                         }
                         else
                         {
-                            et_pwd.setError("Invalid Password");
-                            et_pwd.setText("");
+                            if(pwd.equals(pass))
+                            {
+                                Toast.makeText(login.this,"Logged in", Toast.LENGTH_SHORT).show();
+                                String  sh_name = "MYDATA";
+                                SharedPreferences   sh= getSharedPreferences(sh_name , Context.MODE_PRIVATE);
+                                SharedPreferences.Editor   editor = sh.edit();
+                                editor.putString("key1",uname);
+                                editor.commit();
+                                Intent i3 = new Intent(login.this, home.class);
+                                startActivity(i3);
+                                finish();
+                            }
+                            else
+                            {
+                                et_pwd.setError("Invalid Password");
+                                et_pwd.setText("");
+                            }
                         }
                     }
-                }
-                else
-                {
-                    et_uname.setError("Invalid Username");
-                    et_uname.setText("");
-                    et_pwd.setText("");
+                    else
+                    {
+                        et_uname.setError("Invalid Username");
+                        et_uname.setText("");
+                        et_pwd.setText("");
+                    }
                 }
                 break;
             case R.id.bt_signup:
