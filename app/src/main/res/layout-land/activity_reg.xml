@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.geoaloshious.stegano.reg">
+
+    <RelativeLayout
+        android:id="@+id/rv_round"
+        android:layout_width="120dp"
+        android:layout_height="115dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/roundshape">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_sample"
+            android:layout_width="62dp"
+            android:layout_height="110dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_signup"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="@string/signup"
+        android:textAllCaps="true"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        android:textColor="#075e54"
+        android:gravity="center"/>
+
+    <Switch
+        android:id="@+id/stegano"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/security"
+        android:textSize="12sp"
+        android:textStyle="bold"/>
+
+    <include layout="@layout/content_reg" />
+</RelativeLayout>
+

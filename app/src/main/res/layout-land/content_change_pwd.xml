@@ -11,18 +11,19 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <EditText
         android:id="@+id/et_old"
         android:layout_width="330dp"
         android:layout_height="40dp"
+        android:layout_alignLeft="@+id/et_new"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/et_new"
         android:background="@drawable/box_bg"
-        android:layout_below="@+id/rv_round"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
         android:ems="10"
-        android:inputType="numberPassword"
         android:hint="old password"
-        android:paddingLeft="10dp"/>
+        android:inputType="numberPassword"
+        android:paddingLeft="10dp" />
 
     <Button
         android:id="@+id/bt_ok_old"
@@ -40,28 +41,28 @@
         android:id="@+id/et_new"
         android:layout_width="330dp"
         android:layout_height="40dp"
-        android:background="@drawable/box_bg"
         android:layout_below="@+id/et_old"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/box_bg"
         android:ems="10"
-        android:inputType="numberPassword"
         android:hint="new password"
-        android:paddingLeft="10dp"/>
+        android:inputType="numberPassword"
+        android:paddingLeft="10dp" />
 
     <EditText
         android:id="@+id/et_renew"
         android:layout_width="330dp"
         android:layout_height="40dp"
-        android:background="@drawable/box_bg"
         android:layout_alignLeft="@+id/et_new"
         android:layout_alignStart="@+id/et_new"
         android:layout_below="@+id/et_new"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="19dp"
+        android:background="@drawable/box_bg"
         android:ems="10"
-        android:inputType="numberPassword"
         android:hint="retype password"
-        android:paddingLeft="10dp"/>
+        android:inputType="numberPassword"
+        android:paddingLeft="10dp" />
 
     <Button
         android:id="@+id/bt_save"

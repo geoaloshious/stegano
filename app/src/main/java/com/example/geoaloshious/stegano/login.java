@@ -1,7 +1,6 @@
 package com.example.geoaloshious.stegano;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -9,25 +8,18 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Build;
-import android.support.v7.app.AlertDialog;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +29,7 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
     RelativeLayout rv_round;
     Button bt_login,bt_signup;
     EditText et_uname,et_pwd;
-    String uname,pwd,pass,adminu="admin",adminp="0000";
+    String uname,pwd,pass,adminu="admin",adminp="0000",pwd_original;
     int flag=0;
     DBConnection db = new DBConnection(login.this);
     RecyclerView rv_sample;
@@ -46,7 +38,8 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
     Adapter1 adp;
     List<Beanclass1> b;
     int a[]=new int[10];
-    int ld=0,s=0,i1,pos;
+    int i,i1,pos,user_exists;
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,62 +128,40 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
                 }
                 else
                 {
+                    if(swstate)
+                    {
+                        pwd_original = convrt(pwd);
+                        pwd=pwd_original;
+                    }
                     db.openConnection();
                     String query1= "select * from tbl_stegno where uname='"+uname+"'";
                     Cursor cursor = db.selectData(query1);
-                    if(cursor!=null)
+                    if(cursor.moveToNext())
                     {
-                        if(cursor.moveToNext())
-                        {
-                            pass=cursor.getString(7);
-                            flag=1;
-                        }
+                        pass=cursor.getString(7);
+                        user_exists=1;
                     }
                     else
                     {
-                        flag=0;
+                        user_exists=0;
                     }
                     db.closeConnection();
-                    if (flag == 1)
+                    if (user_exists == 1)
                     {
-                        if(swstate)
+                        if (pwd.equals(pass))
                         {
-                            String pwd2 = convrt(pwd);
-                            if (pwd2.equals(pass))
-                            {
-                                String  sh_name = "MYDATA";
-                                SharedPreferences   sh= getSharedPreferences(sh_name , Context.MODE_PRIVATE);
-                                SharedPreferences.Editor   editor = sh.edit();
-                                editor.putString("key1",uname);
-                                editor.commit();
-                                Intent i1 = new Intent(login.this, home.class);
-                                startActivity(i1);
-                                Toast.makeText(login.this, "Logged In", Toast.LENGTH_SHORT).show();
-                            } else
-                            {
-                                et_pwd.setError("Invalid Password");
-                                et_pwd.setText("");
-                            }
-                        }
-                        else
+                            String  sh_name = "MYDATA";
+                            SharedPreferences   sh= getSharedPreferences(sh_name , Context.MODE_PRIVATE);
+                            SharedPreferences.Editor   editor = sh.edit();
+                            editor.putString("key1",uname);
+                            editor.commit();
+                            Intent i1 = new Intent(login.this, home.class);
+                            startActivity(i1);
+                            Toast.makeText(login.this, "Logged In", Toast.LENGTH_SHORT).show();
+                        } else
                         {
-                            if(pwd.equals(pass))
-                            {
-                                Toast.makeText(login.this,"Logged in", Toast.LENGTH_SHORT).show();
-                                String  sh_name = "MYDATA";
-                                SharedPreferences   sh= getSharedPreferences(sh_name , Context.MODE_PRIVATE);
-                                SharedPreferences.Editor   editor = sh.edit();
-                                editor.putString("key1",uname);
-                                editor.commit();
-                                Intent i3 = new Intent(login.this, home.class);
-                                startActivity(i3);
-                                finish();
-                            }
-                            else
-                            {
-                                et_pwd.setError("Invalid Password");
-                                et_pwd.setText("");
-                            }
+                            et_pwd.setError("Invalid Password");
+                            et_pwd.setText("");
                         }
                     }
                     else
@@ -210,8 +181,6 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
     }
     public String convrt(String otp)
     {
-        s=0;ld=0;
-        int i=0,i1;
         a=adp.b;
         int a2[]=new int[otp.length()];
         for(i=0;i<otp.length();i++)
@@ -235,23 +204,29 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
         {
             strNum.append(num);
         }
-        String guess=String.valueOf(strNum);
-        return guess;
+        String otp_converted=String.valueOf(strNum);
+        return otp_converted;
     }
     @Override
     public void onBackPressed()
     {
-        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_delete).setTitle("Exit")
-                .setMessage("Are you sure?")
-                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        Intent intent = new Intent(Intent.ACTION_MAIN);
-                        intent.addCategory(Intent.CATEGORY_HOME);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                    }
-                }).setNegativeButton("no", null).show();
+        if (doubleBackToExitPressedOnce)
+        {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 }

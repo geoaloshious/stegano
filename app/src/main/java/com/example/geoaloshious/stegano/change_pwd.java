@@ -35,14 +35,14 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
     EditText et_old,et_new,et_renew;
     TextView tv_change_pwd;
     DBConnection db = new DBConnection(change_pwd.this);
-    String oldpwd,newpwd,newpwd2="",renewpwd,pass,uname,newp;
+    String oldpwd,newpwd,renewpwd,db_pwd,uname,oldpwd_original,newpwd_original,renewpwd_original;
     RecyclerView rv_sample;
     private SensorManager mSensorManager;
     private Sensor mSensor;
     Adapter3 adp;
     List<Beanclass3> b;
     int a[]=new int[10];
-    int ld=0,s=0,guessed=0,i1,pos,flag=0,flag1;
+    int i,i1,pos,flag=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +105,11 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
                 break;
             case R.id.bt_ok_old:
                 oldpwd=et_old.getText().toString();
+                if(swstate)
+                {
+                    oldpwd_original = convrt(oldpwd);
+                    oldpwd=oldpwd_original;
+                }
                 String  sh_name ="MYDATA";
                 SharedPreferences sh=getSharedPreferences(sh_name, Context.MODE_PRIVATE);
                 uname = sh.getString("key1",null);
@@ -115,38 +120,20 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
                 {
                     if(cursor.moveToNext())
                     {
-                        pass=cursor.getString(7);
+                        db_pwd=cursor.getString(7);
                     }
                 }
                 db.closeConnection();
-                if(swstate)
+                if(oldpwd.equals(db_pwd))
                 {
-                    String currentp1=convrt(oldpwd);
-                    if(currentp1.equals(pass))
-                    {
-                        et_new.setFocusableInTouchMode(true);
-                        et_new.requestFocus();
-                        et_old.setFocusable(false);
-                    }
-                    else
-                    {
-                        et_old.setError("Incorrect Password");
-                        et_old.setText("");
-                    }
+                    et_new.setFocusableInTouchMode(true);
+                    et_new.requestFocus();
+                    et_old.setFocusable(false);
                 }
                 else
                 {
-                    if(oldpwd.equals(pass))
-                    {
-                        et_new.setFocusableInTouchMode(true);
-                        et_new.requestFocus();
-                        et_old.setFocusable(false);
-                    }
-                    else
-                    {
-                        et_old.setError("Incorrect Password");
-                        et_old.setText("");
-                    }
+                    et_old.setError("Incorrect Password");
+                    et_old.setText("");
                 }
                 bt_ok_old.setEnabled(false);
                 break;
@@ -154,12 +141,8 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
                 newpwd=et_new.getText().toString();
                 if(swstate)
                 {
-                    newpwd2=convrt(newpwd);
-                    flag1=1;
-                }
-                else
-                {
-                    flag1=0;
+                    newpwd_original=convrt(newpwd);
+                    newpwd=newpwd_original;
                 }
                 et_renew.setFocusableInTouchMode(true);
                 et_renew.requestFocus();
@@ -168,52 +151,26 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
                 break;
             case R.id.bt_save:
                 renewpwd=et_renew.getText().toString();
-                if(flag1==1)
-                {
-                    newp=newpwd2;
-                }
-                else
-                {
-                    newp=newpwd;
-                }
                 if(swstate)
                 {
-                    String renewp2=convrt(renewpwd);
-                    if(newp.equals(renewp2))
-                    {
-                        db.openConnection();
-                        String query2="update tbl_stegno set password='"+newp+"' where uname='"+uname+"'";
-                        db.insertData(query2);
-                        db.closeConnection();
-                        Toast.makeText(change_pwd.this,"Password Changed", Toast.LENGTH_SHORT).show();
-                        Intent i1 = new Intent(change_pwd.this, home.class);
-                        startActivity(i1);
-                        finish();
-                    }
-                    else
-                    {
-                        et_renew.setError("Passwords didn't match");
-                        et_renew.setText("");
-                    }
+                    renewpwd_original=convrt(renewpwd);
+                    renewpwd=renewpwd_original;
+                }
+                if(newpwd.equals(renewpwd))
+                {
+                    db.openConnection();
+                    String query2="update tbl_stegno set password='"+newpwd+"' where uname='"+uname+"'";
+                    db.insertData(query2);
+                    db.closeConnection();
+                    Toast.makeText(change_pwd.this,"Password Changed", Toast.LENGTH_SHORT).show();
+                    Intent i1 = new Intent(change_pwd.this, home.class);
+                    startActivity(i1);
+                    finish();
                 }
                 else
                 {
-                    if(newp.equals(renewpwd))
-                    {
-                        db.openConnection();
-                        String query2="update tbl_stegno set password='"+newp+"' where uname='"+uname+"'";
-                        db.insertData(query2);
-                        db.closeConnection();
-                        Toast.makeText(change_pwd.this,"Password Changed", Toast.LENGTH_SHORT).show();
-                        Intent i1 = new Intent(change_pwd.this, home.class);
-                        startActivity(i1);
-                        finish();
-                    }
-                    else
-                    {
-                        et_renew.setError("Passwords didn't match");
-                        et_renew.setText("");
-                    }
+                    et_renew.setError("Passwords didn't match");
+                    et_renew.setText("");
                 }
                 break;
         }
@@ -253,8 +210,6 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
     }
     public String convrt(String otp)
     {
-        s=0;ld=0;
-        int i=0,i1;
         a=adp.b;
         int a2[]=new int[otp.length()];
         for(i=0;i<otp.length();i++)
@@ -278,8 +233,8 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
         {
             strNum.append(num);
         }
-        String guess=String.valueOf(strNum);
-        return guess;
+        String otp_converted=String.valueOf(strNum);
+        return otp_converted;
     }
     @Override
     public void onBackPressed()

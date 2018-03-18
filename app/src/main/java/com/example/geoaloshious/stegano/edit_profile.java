@@ -16,33 +16,33 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.RandomAccess;
 
 public class edit_profile extends AppCompatActivity implements View.OnClickListener
 {
     Button bt_save,bt_cancel;
-    int count=0;
     RadioGroup rg_gender;
-    String name=null,dob=null,gender=null,email=null,phone=null,uname=null;
+    RadioButton rd_male;
+    String name=null,dob=null,gender="Male",email=null,phone=null,uname=null;
     EditText et_name,et_dob,et_email,et_phone;
-    int flag=0;
+    int error_dob,error_email;
     DBConnection db = new DBConnection(edit_profile.this);
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-
+    String datePattern = "^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9][0-9][0-9])$";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
         bt_save=(Button)findViewById(R.id.bt_save);
         bt_save.setOnClickListener(this);
+        rd_male=(RadioButton)findViewById(R.id.rd_male);
+        rd_male.setChecked(true);
         bt_cancel=(Button)findViewById(R.id.bt_cancel);
         bt_cancel.setOnClickListener(this);
         et_name=(EditText)findViewById(R.id.et_name);
@@ -50,16 +50,18 @@ public class edit_profile extends AppCompatActivity implements View.OnClickListe
         et_email=(EditText)findViewById(R.id.et_email);
         et_phone=(EditText)findViewById(R.id.et_phone);
         rg_gender=(RadioGroup)findViewById(R.id.rg_gender);
-        rg_gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        rg_gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
             @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+            public void onCheckedChanged(RadioGroup radioGroup, int i)
+            {
                 if(i==R.id.rd_male)
                 {
-                    gender="male";
+                    gender="Male";
                 }
                 else if (i==R.id.rd_female)
                 {
-                    gender="female";
+                    gender="Female";
                 }
             }
         });
@@ -83,10 +85,8 @@ public class edit_profile extends AppCompatActivity implements View.OnClickListe
                 dob=et_dob.getText().toString();
                 phone=et_phone.getText().toString();
                 email=et_email.getText().toString();
-                count=0;
                 if(name.isEmpty())
                 {
-                    count++;
                     db.openConnection();
                     String query1= "select * from tbl_stegno where uname='"+uname+"'";
                     Cursor cursor1 = db.selectData(query1);
@@ -101,7 +101,6 @@ public class edit_profile extends AppCompatActivity implements View.OnClickListe
                 }
                 if(dob.isEmpty())
                 {
-                    count++;
                     db.openConnection();
                     String query2= "select * from tbl_stegno where uname='"+uname+"'";
                     Cursor cursor2 = db.selectData(query2);
@@ -114,9 +113,21 @@ public class edit_profile extends AppCompatActivity implements View.OnClickListe
                     }
                     db.closeConnection();
                 }
+                else
+                {
+                    if (dob.matches(datePattern))
+                    {
+                        error_dob=0;
+                    }
+                    else
+                    {
+                        et_dob.setText("");
+                        et_dob.setError("Invalid format");
+                        error_dob=1;
+                    }
+                }
                 if(phone.isEmpty())
                 {
-                    count++;
                     db.openConnection();
                     String query3= "select * from tbl_stegno where uname='"+uname+"'";
                     Cursor cursor3 = db.selectData(query3);
@@ -131,7 +142,6 @@ public class edit_profile extends AppCompatActivity implements View.OnClickListe
                 }
                 if(email.isEmpty())
                 {
-                    count++;
                     db.openConnection();
                     String query4= "select * from tbl_stegno where uname='"+uname+"'";
                     Cursor cursor4 = db.selectData(query4);
@@ -148,41 +158,22 @@ public class edit_profile extends AppCompatActivity implements View.OnClickListe
                 {
                     if (email.matches(emailPattern))
                     {
-                        flag=0;
+                        error_email=0;
                     }
                     else
                     {
                         et_email.setText("");
                         et_email.setError("Invalid email");
-                        flag++;
+                        error_email=1;
                     }
                 }
-                if(gender==null)
-                {
-                    count++;
-                    db.openConnection();
-                    String query5= "select * from tbl_stegno where uname='"+uname+"'";
-                    Cursor cursor5 = db.selectData(query5);
-                    if(cursor5!=null)
-                    {
-                        if (cursor5.moveToNext())
-                        {
-                            gender=cursor5.getString(2);
-                        }
-                    }
-                    db.closeConnection();
-                }
-                if(flag==0)
+                if((error_dob==0)&&(error_email==0))
                 {
                     db.openConnection();
                     String query2 = "update tbl_stegno set name='" + name + "',dob='" + dob + "',phone='" + phone + "',email='" + email + "',gender='" + gender + "' where uname='" + uname + "'";
                     db.insertData(query2);
                     db.closeConnection();
-                    if (count == 5) {
-                        Toast.makeText(edit_profile.this, "No changes made", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(edit_profile.this, "Changes saved", Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText(edit_profile.this, "Changes saved", Toast.LENGTH_SHORT).show();
                     Intent i1 = new Intent(edit_profile.this, home.class);
                     startActivity(i1);
                     finish();

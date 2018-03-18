@@ -7,23 +7,19 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,11 +27,12 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
     Switch stegano=null;
     boolean swstate=false;
     RelativeLayout rv_round;
+    RadioButton rd_male;
     Button bt_ok,bt_signup;
     TextView tv_signup;
     RadioGroup rg_gender;
     EditText et_name,et_dob,et_phone,et_email,et_uname,et_pwd,et_repwd;
-    String name,dob,gender,email,uname,pwd,repwd,phone;
+    String name,dob,gender="Male",email,uname,pwd,repwd,repwd_original,phone;
     DBConnection db = new DBConnection(reg.this);
     RecyclerView rv_sample;
     private SensorManager mSensorManager;
@@ -43,8 +40,9 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
     Adapter2 adp;
     List<Beanclass2> b;
     int a[]=new int[10];
-    int ld=0,s=0,guessed=0,i1,pos,flag=0,flg,err;
+    int i,i1,pos,flag=0,user_exists,empty_name=0,empty_phone=0,empty_uname=0,error_email=0,error_dob=0,empty_pwd=1;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    String datePattern = "^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9][0-9][0-9])$";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +53,8 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
         rv_sample.setVisibility(View.INVISIBLE);
         adp=new Adapter2(this);
         b=new ArrayList<>();
+        rd_male=(RadioButton)findViewById(R.id.rd_male);
+        rd_male.setChecked(true);
         stegano=(Switch)findViewById(R.id.stegano);
         stegano.setOnCheckedChangeListener(this);
         rv_round=(RelativeLayout)findViewById(R.id.rv_round);
@@ -81,11 +81,11 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 if(i==R.id.rd_male)
                 {
-                    gender="male";
+                    gender="Male";
                 }
                 else if (i==R.id.rd_female)
                 {
-                    gender="female";
+                    gender="Female";
                 }
             }
         });
@@ -148,20 +148,29 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
         {
             case R.id.bt_ok:
                 pwd= et_pwd.getText().toString();
-                String pwd1=pwd;
-                if(swstate)
+                if(pwd.matches(""))
                 {
-                    String pwd2 = convrt(pwd);
-                    pwd=pwd2;
+                    empty_pwd=1;
+                    et_pwd.setError("Enter password");
                 }
                 else
                 {
-                    pwd=pwd1;
+                    empty_pwd=0;
+                    String pwd1=pwd;
+                    if(swstate)
+                    {
+                        String pwd2 = convrt(pwd);
+                        pwd=pwd2;
+                    }
+                    else
+                    {
+                        pwd=pwd1;
+                    }
+                    et_repwd.setFocusableInTouchMode(true);
+                    et_repwd.requestFocus();
+                    et_pwd.setFocusable(false);
+                    bt_ok.setEnabled(false);
                 }
-                et_repwd.setFocusableInTouchMode(true);
-                et_repwd.requestFocus();
-                et_pwd.setFocusable(false);
-                bt_ok.setEnabled(false);
                 break;
             case R.id.bt_signup:
                 name=et_name.getText().toString();
@@ -170,70 +179,92 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
                 email=et_email.getText().toString();
                 uname=et_uname.getText().toString();
                 repwd=et_repwd.getText().toString();
+                if(swstate)
+                {
+                    repwd_original = convrt(repwd);
+                    repwd = repwd_original;
+                }
+                if(name.matches(""))
+                {
+                    et_name.setText("");
+                    et_name.setError("Enter name");
+                    empty_name=1;
+                }
+                else
+                {
+                    empty_name=0;
+                }
+                if(phone.matches(""))
+                {
+                    et_phone.setText("");
+                    et_phone.setError("Enter phone no.");
+                    empty_phone=1;
+                }
+                else
+                {
+                    empty_phone=0;
+                }
                 if (email.matches(emailPattern))
                 {
-                    err=0;
+                    error_email=0;
                 }
                 else
                 {
                     et_email.setText("");
                     et_email.setError("Invalid email");
-                    err++;
+                    error_email=1;
                 }
-                String repwd2 = convrt(repwd);
-                db.openConnection();
-                String query1= "select * from tbl_stegno where uname='"+uname+"'";
-                Cursor cursor = db.selectData(query1);
-                if(cursor.moveToNext())
+                if (dob.matches(datePattern))
                 {
-                    flg=0;
+                    error_dob=0;
                 }
                 else
                 {
-                    flg=1;
+                    et_dob.setText("");
+                    et_dob.setError("Invalid format");
+                    error_dob=1;
                 }
-                db.closeConnection();
-                if(flg==1)
+                if(uname.matches(""))
                 {
-                    if(err==0)
+                    et_uname.setText("");
+                    et_uname.setError("Enter username");
+                    empty_uname=1;
+                }
+                else
+                {
+                    empty_uname=0;
+                    db.openConnection();
+                    String query1= "select * from tbl_stegno where uname='"+uname+"'";
+                    Cursor cursor = db.selectData(query1);
+                    if(cursor.moveToNext())
                     {
-                        if (swstate)
+                        user_exists=1;
+                    }
+                    else
+                    {
+                        user_exists=0;
+                    }
+                    db.closeConnection();
+                }
+                if(user_exists==0)
+                {
+                    if((error_email==0)&&(empty_name==0)&&(error_dob==0)&&(empty_phone==0)&&(empty_uname==0)&&(empty_pwd==0))
+                    {
+                        if (pwd.equals(repwd))
                         {
-                            if (pwd.equals(repwd2))
-                            {
-                                db.openConnection();
-                                String query = "insert into tbl_stegno(name,gender,dob,phone,email,uname,password) values ('" + name + "','" + gender + "','" + dob + "','" + phone + "','" + email + "','" + uname + "','" + pwd + "')";
-                                db.insertData(query);
-                                db.closeConnection();
-                                Toast.makeText(reg.this, "Registered", Toast.LENGTH_SHORT).show();
-                                Intent i1 = new Intent(reg.this, login.class);
-                                startActivity(i1);
-                                finish();
-                            }
-                            else
-                            {
-                                et_repwd.setText("");
-                                et_repwd.setError("Passwords didn't match");
-                            }
+                            db.openConnection();
+                            String query = "insert into tbl_stegno(name,gender,dob,phone,email,uname,password) values ('" + name + "','" + gender + "','" + dob + "','" + phone + "','" + email + "','" + uname + "','" + pwd + "')";
+                            db.insertData(query);
+                            db.closeConnection();
+                            Toast.makeText(reg.this, "Registered", Toast.LENGTH_SHORT).show();
+                            Intent i1 = new Intent(reg.this, login.class);
+                            startActivity(i1);
+                            finish();
                         }
                         else
                         {
-                            if (pwd.equals(repwd))
-                            {
-                                db.openConnection();
-                                String query = "insert into tbl_stegno(name,gender,dob,phone,email,uname,password) values ('" + name + "','" + gender + "','" + dob + "','" + phone + "','" + email + "','" + uname + "','" + pwd + "')";
-                                db.insertData(query);
-                                db.closeConnection();
-                                Toast.makeText(reg.this, "Registered", Toast.LENGTH_SHORT).show();
-                                Intent i1 = new Intent(reg.this, login.class);
-                                startActivity(i1);
-                                finish();
-                            }
-                            else
-                            {
-                                et_repwd.setText("");
-                                et_repwd.setError("Passwords didn't match");
-                            }
+                            et_repwd.setText("");
+                            et_repwd.setError("Passwords didn't match");
                         }
                     }
                 }
@@ -247,8 +278,6 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
     }
     public String convrt(String otp)
     {
-        s=0;ld=0;
-        int i=0,i1;
         a=adp.b;
         int a2[]=new int[otp.length()];
         for(i=0;i<otp.length();i++)
@@ -272,8 +301,8 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
         {
             strNum.append(num);
         }
-        String guess=String.valueOf(strNum);
-        return guess;
+        String otp_converted=String.valueOf(strNum);
+        return otp_converted;
     }
     @Override
     public void onBackPressed()
