@@ -23,7 +23,8 @@
         android:ems="10"
         android:hint="old password"
         android:inputType="numberPassword"
-        android:paddingLeft="10dp" />
+        android:drawableLeft="@drawable/ic_oldpwd"
+        android:drawablePadding="10dp" />
 
     <Button
         android:id="@+id/bt_ok_old"
@@ -48,7 +49,8 @@
         android:ems="10"
         android:hint="new password"
         android:inputType="numberPassword"
-        android:paddingLeft="10dp" />
+        android:drawableLeft="@drawable/ic_password"
+        android:drawablePadding="10dp"/>
 
     <EditText
         android:id="@+id/et_renew"
@@ -62,21 +64,23 @@
         android:ems="10"
         android:hint="retype password"
         android:inputType="numberPassword"
-        android:paddingLeft="10dp" />
+        android:drawableLeft="@drawable/ic_retype"
+        android:drawablePadding="10dp" />
 
     <Button
         android:id="@+id/bt_save"
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="35dp"
-        android:layout_alignBaseline="@+id/bt_cancel"
-        android:layout_alignBottom="@+id/bt_cancel"
-        android:layout_toLeftOf="@+id/bt_ok_new"
-        android:layout_toStartOf="@+id/bt_ok_new"
-        android:background="@drawable/button_bg"
-        android:text="SAVE"
-        android:textColor="#075e54"
-        android:textSize="18dp"
-        android:textStyle="bold" />
+        android:layout_alignEnd="@+id/bt_ok_new"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/bt_ok_new"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:background="@drawable/button_bg2"
+        android:text="Change Password"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="18dp" />
 
     <Button
         android:id="@+id/bt_ok_new"
@@ -99,7 +103,8 @@
         android:layout_marginRight="30dp"
         android:layout_toLeftOf="@+id/bt_save"
         android:background="@drawable/button_bg"
-        android:text="CANCEL"
+        android:text="Cancel"
+        android:textAllCaps="false"
         android:textColor="#075e54"
         android:textSize="18dp"
         android:textStyle="bold" />

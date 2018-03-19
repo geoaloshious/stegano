@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/et_name"
         android:layout_alignStart="@+id/et_name"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="11dp"
         android:layout_below="@id/et_name"
         android:text="Gender"
         android:textColor="@android:color/black"
@@ -36,20 +36,21 @@
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_below="@+id/tv_edit_profile"
+        android:drawableLeft="@drawable/ic_uname"
+        android:drawablePadding="10dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="13dp"
         android:background="@drawable/box_bg"
         android:ems="10"
         android:hint="Name"
-        android:inputType="textCapWords"
-        android:paddingLeft="10dp" />
+        android:inputType="textCapWords"/>
 
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_name"
         android:layout_toRightOf="@+id/tv_gender"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="5dp"
         android:layout_marginLeft="15dp"
         android:orientation="horizontal"
         android:id="@+id/rg_gender">
@@ -81,13 +82,14 @@
         android:layout_height="40dp"
         android:layout_alignLeft="@+id/tv_gender"
         android:layout_alignStart="@+id/tv_gender"
+        android:drawableLeft="@drawable/ic_date"
+        android:drawablePadding="10dp"
         android:layout_below="@+id/rg_gender"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/box_bg"
         android:ems="10"
-        android:hint="Date of birth     [dd/mm/yyyy]"
-        android:inputType="date"
-        android:paddingLeft="10dp" />
+        android:hint="Date of birth   [dd/mm/yyyy]"
+        android:inputType="date"/>
 
     <EditText
         android:id="@+id/et_phone"
@@ -95,13 +97,14 @@
         android:layout_height="40dp"
         android:layout_alignLeft="@+id/et_dob"
         android:layout_alignStart="@+id/et_dob"
+        android:drawableLeft="@drawable/ic_phone"
+        android:drawablePadding="10dp"
         android:layout_below="@+id/et_dob"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="7dp"
         android:background="@drawable/box_bg"
         android:ems="10"
         android:hint="Phone No."
-        android:inputType="phone"
-        android:paddingLeft="10dp" />
+        android:inputType="phone"/>
 
     <EditText
         android:id="@+id/et_email"
@@ -109,41 +112,47 @@
         android:layout_height="40dp"
         android:layout_alignLeft="@+id/et_phone"
         android:layout_alignStart="@+id/et_phone"
+        android:drawableLeft="@drawable/ic_email"
+        android:drawablePadding="10dp"
         android:layout_below="@+id/et_phone"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="7dp"
         android:background="@drawable/box_bg"
         android:ems="10"
         android:hint="Email ID"
-        android:inputType="textEmailAddress"
-        android:paddingLeft="10dp" />
+        android:inputType="textEmailAddress"/>
 
     <Button
         android:id="@+id/bt_save"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="21dp"
-        android:layout_marginStart="21dp"
-        android:layout_toEndOf="@+id/bt_cancel"
-        android:layout_toRightOf="@+id/bt_cancel"
-        android:background="@drawable/button_bg"
-        android:text="SAVE"
-        android:textColor="#075e54"
-        android:textSize="20dp"
-        android:textStyle="bold" />
-
+        android:layout_below="@id/et_email"
+        android:layout_toRightOf="@id/bt_align"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/button_bg2"
+        android:text="Save"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="18dp"/>
+    <Button
+        android:id="@+id/bt_align"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/et_email"
+        android:layout_marginTop="30dp"
+        android:background="@android:color/white"
+        android:visibility="invisible"
+        android:clickable="false"/>
     <Button
         android:id="@+id/bt_cancel"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="7dp"
-        android:layout_marginStart="7dp"
-        android:layout_toEndOf="@+id/tv_gender"
-        android:layout_toRightOf="@+id/tv_gender"
+        android:layout_below="@id/et_email"
+        android:layout_toLeftOf="@id/bt_align"
+        android:layout_marginTop="30dp"
         android:background="@drawable/button_bg"
-        android:text="CANCEL"
+        android:text="Cancel"
+        android:textAllCaps="false"
         android:textColor="#075e54"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+        android:textSize="18dp"/>
 </RelativeLayout>

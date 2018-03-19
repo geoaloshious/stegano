@@ -21,6 +21,14 @@ public class Adapter1 extends RecyclerView.Adapter<Adapter1.MyViewHolder> {
     {
         this.context=login;
     }
+    public Adapter1(reg reg)
+    {
+        this.context=reg;
+    }
+    public Adapter1(change_pwd change_pwd)
+    {
+        this.context=change_pwd;
+    }
     public void rand()
     {
         Random rgen = new Random();

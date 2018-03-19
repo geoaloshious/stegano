@@ -42,9 +42,10 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/box_bg"
         android:layout_marginBottom="9dp"
+        android:drawableLeft="@drawable/ic_uname"
+        android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Username"
-        android:paddingLeft="10dp"
         android:inputType="textPersonName" />
 
     <EditText
@@ -52,38 +53,39 @@
         android:layout_width="250dp"
         android:layout_height="40dp"
         android:background="@drawable/box_bg"
+        android:drawableLeft="@drawable/ic_password"
+        android:drawablePadding="10dp"
         android:layout_alignLeft="@+id/et_uname"
         android:layout_alignStart="@+id/et_uname"
         android:layout_centerVertical="true"
         android:ems="10"
         android:hint="Password"
-        android:paddingLeft="10dp"
         android:inputType="numberPassword" />
 
     <Button
         android:id="@+id/bt_login"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="35dp"
-        android:background="@drawable/button_bg"
+        android:background="@drawable/button_bg2"
         android:layout_below="@+id/et_pwd"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:text="LOGIN"
-        android:textColor="#075e54"
-        android:textStyle="bold"
-        android:textSize="20dp"/>
+        android:text="Login"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="18dp"/>
 
     <Button
         android:id="@+id/bt_signup"
-        android:layout_width="150dp"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
+        android:layout_width="250dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/bt_login"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
-        android:background="@android:color/transparent"
-        android:text="Click here to signup"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_bg"
+        android:text="Signup"
         android:textAllCaps="false"
-        android:textSize="15dp"
-        android:textColor="#075e54" />
+        android:textColor="#075e54"
+        android:textSize="18dp"/>
 
 </RelativeLayout>

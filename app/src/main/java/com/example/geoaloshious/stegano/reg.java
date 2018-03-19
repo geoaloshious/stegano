@@ -1,6 +1,7 @@
 package com.example.geoaloshious.stegano;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -37,8 +38,8 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
     RecyclerView rv_sample;
     private SensorManager mSensorManager;
     private Sensor mSensor;
-    Adapter2 adp;
-    List<Beanclass2> b;
+    Adapter1 adp;
+    List<Beanclass1> b;
     int a[]=new int[10];
     int i,i1,pos,flag=0,user_exists,empty_name=0,empty_phone=0,empty_uname=0,error_email=0,error_dob=0,empty_pwd=1;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
@@ -51,7 +52,7 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
         rv_sample=(RecyclerView)findViewById(R.id.rv_sample);
         rv_sample.setLayoutManager(new GridLayoutManager(this, 3));
         rv_sample.setVisibility(View.INVISIBLE);
-        adp=new Adapter2(this);
+        adp=new Adapter1(this);
         b=new ArrayList<>();
         rd_male=(RadioButton)findViewById(R.id.rd_male);
         rd_male.setChecked(true);
@@ -110,7 +111,7 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
         {
             if((flag==0)&&(swstate==true))
             {
-                adp = new Adapter2(this);
+                adp = new Adapter1(this);
                 adp.rand();
                 rv_sample.setAdapter(adp);
                 rv_sample.setVisibility(View.VISIBLE);
@@ -124,19 +125,34 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
         }
     }
     @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b)
+    {
         swstate = b;
         if(swstate)
         {
             rv_round.setVisibility(View.VISIBLE);
-            tv_signup.setVisibility(View.GONE);
             Toast.makeText(reg.this,"Security turned on", Toast.LENGTH_SHORT).show();
+            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+            {
+                tv_signup.setVisibility(View.VISIBLE);
+            }
+            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+            {
+                tv_signup.setVisibility(View.GONE);
+            }
         }
         else
         {
             rv_round.setVisibility(View.GONE);
-            tv_signup.setVisibility(View.VISIBLE);
             Toast.makeText(reg.this,"Security turned off", Toast.LENGTH_SHORT).show();
+            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+            {
+                tv_signup.setVisibility(View.VISIBLE);
+            }
+            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+            {
+                tv_signup.setVisibility(View.VISIBLE);
+            }
         }
 
     }

@@ -3,6 +3,7 @@ package com.example.geoaloshious.stegano;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;

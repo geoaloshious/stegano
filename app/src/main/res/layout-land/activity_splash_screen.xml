@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@android:color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context="com.example.geoaloshious.stegano.change_pwd">
 
     <ImageView
@@ -12,7 +12,7 @@
         android:layout_height="140dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="42dp"
         android:src="@drawable/spash" />
     <TextView
         android:id="@+id/tv1"
@@ -44,7 +44,6 @@
         android:layout_marginTop="80dp"
         android:text="PIN"
         android:textSize="35dp"
-        android:textColor="#128c7e"
-        android:textStyle="normal"/>
+        android:textColor="#128c7e"/>
 </RelativeLayout>
 

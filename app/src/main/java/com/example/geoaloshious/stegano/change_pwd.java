@@ -3,6 +3,7 @@ package com.example.geoaloshious.stegano;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -39,10 +40,10 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
     RecyclerView rv_sample;
     private SensorManager mSensorManager;
     private Sensor mSensor;
-    Adapter3 adp;
-    List<Beanclass3> b;
+    Adapter1 adp;
+    List<Beanclass1> b;
     int a[]=new int[10];
-    int i,i1,pos,flag=0;
+    int i,i1,pos,flag=0,empty_pwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,7 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
         rv_sample=(RecyclerView)findViewById(R.id.rv_sample);
         rv_sample.setLayoutManager(new GridLayoutManager(this, 3));
         rv_sample.setVisibility(View.INVISIBLE);
-        adp=new Adapter3(this);
+        adp=new Adapter1(this);
         b=new ArrayList<>();
         stegano=(Switch)findViewById(R.id.stegano);
         stegano.setOnCheckedChangeListener(this);
@@ -61,8 +62,10 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
         bt_ok_old.setOnClickListener(this);
         bt_ok_new=(Button)findViewById(R.id.bt_ok_new);
         bt_ok_new.setOnClickListener(this);
+        bt_ok_new.setEnabled(false);
         bt_save=(Button)findViewById(R.id.bt_save);
         bt_save.setOnClickListener(this);
+        bt_save.setEnabled(false);
         bt_cancel=(Button)findViewById(R.id.bt_cancel);
         bt_cancel.setOnClickListener(this);
         et_new=(EditText)findViewById(R.id.et_new);
@@ -83,14 +86,28 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
         if(swstate)
         {
             rv_round.setVisibility(View.VISIBLE);
-            tv_change_pwd.setVisibility(View.GONE);
             Toast.makeText(change_pwd.this,"Security turned on", Toast.LENGTH_SHORT).show();
+            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+            {
+                tv_change_pwd.setVisibility(View.VISIBLE);
+            }
+            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+            {
+                tv_change_pwd.setVisibility(View.GONE);
+            }
         }
         else
         {
             rv_round.setVisibility(View.GONE);
-            tv_change_pwd.setVisibility(View.VISIBLE);
             Toast.makeText(change_pwd.this,"Security turned off", Toast.LENGTH_SHORT).show();
+            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+            {
+                tv_change_pwd.setVisibility(View.VISIBLE);
+            }
+            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+            {
+                tv_change_pwd.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -104,12 +121,6 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
                 finish();
                 break;
             case R.id.bt_ok_old:
-                oldpwd=et_old.getText().toString();
-                if(swstate)
-                {
-                    oldpwd_original = convrt(oldpwd);
-                    oldpwd=oldpwd_original;
-                }
                 String  sh_name ="MYDATA";
                 SharedPreferences sh=getSharedPreferences(sh_name, Context.MODE_PRIVATE);
                 uname = sh.getString("key1",null);
@@ -124,30 +135,57 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
                     }
                 }
                 db.closeConnection();
-                if(oldpwd.equals(db_pwd))
+                oldpwd=et_old.getText().toString();
+                if(oldpwd.matches(""))
                 {
-                    et_new.setFocusableInTouchMode(true);
-                    et_new.requestFocus();
-                    et_old.setFocusable(false);
+                    empty_pwd=1;
+                    et_old.setError("Enter password");
                 }
                 else
                 {
-                    et_old.setError("Incorrect Password");
-                    et_old.setText("");
+                    empty_pwd=0;
+                    if(swstate)
+                    {
+                        oldpwd_original = convrt(oldpwd);
+                        oldpwd=oldpwd_original;
+                    }
                 }
-                bt_ok_old.setEnabled(false);
+                if(empty_pwd==0)
+                {
+                    if(oldpwd.equals(db_pwd))
+                    {
+                        bt_ok_old.setEnabled(false);
+                        bt_ok_new.setEnabled(true);
+                        et_new.setFocusableInTouchMode(true);
+                        et_new.requestFocus();
+                        et_old.setFocusable(false);
+                    }
+                    else
+                    {
+                        et_old.setError("Incorrect Password");
+                        et_old.setText("");
+                    }
+                }
                 break;
             case R.id.bt_ok_new:
                 newpwd=et_new.getText().toString();
-                if(swstate)
+                if(newpwd.matches(""))
                 {
-                    newpwd_original=convrt(newpwd);
-                    newpwd=newpwd_original;
+                    et_new.setError("Enter password");
                 }
-                et_renew.setFocusableInTouchMode(true);
-                et_renew.requestFocus();
-                et_new.setFocusable(false);
-                bt_ok_new.setEnabled(false);
+                else
+                {
+                    if(swstate)
+                    {
+                        newpwd_original = convrt(newpwd);
+                        newpwd=newpwd_original;
+                    }
+                    et_renew.setFocusableInTouchMode(true);
+                    et_renew.requestFocus();
+                    et_new.setFocusable(false);
+                    bt_ok_new.setEnabled(false);
+                    bt_save.setEnabled(true);
+                }
                 break;
             case R.id.bt_save:
                 renewpwd=et_renew.getText().toString();
@@ -195,7 +233,7 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
         {
             if((flag==0)&&(swstate==true))
             {
-                adp = new Adapter3(this);
+                adp = new Adapter1(this);
                 adp.rand();
                 rv_sample.setAdapter(adp);
                 rv_sample.setVisibility(View.VISIBLE);

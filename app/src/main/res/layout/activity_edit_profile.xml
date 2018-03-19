@@ -41,7 +41,8 @@
         android:ems="10"
         android:inputType="textCapWords"
         android:hint="Name"
-        android:paddingLeft="10dp"/>
+        android:drawableLeft="@drawable/ic_uname"
+        android:drawablePadding="10dp"/>
 
     <RadioGroup
         android:layout_width="wrap_content"
@@ -84,8 +85,9 @@
         android:layout_marginLeft="30dp"
         android:ems="10"
         android:inputType="date"
-        android:hint="Date of birth     [dd/mm/yyyy]"
-        android:paddingLeft="10dp"/>
+        android:hint="Date of birth   [dd/mm/yyyy]"
+        android:drawableLeft="@drawable/ic_date"
+        android:drawablePadding="10dp"/>
 
     <EditText
         android:id="@+id/et_phone"
@@ -97,7 +99,8 @@
         android:ems="10"
         android:inputType="phone"
         android:hint="Phone No."
-        android:paddingLeft="10dp"/>
+        android:drawableLeft="@drawable/ic_phone"
+        android:drawablePadding="10dp"/>
 
     <EditText
         android:id="@+id/et_email"
@@ -109,7 +112,8 @@
         android:ems="10"
         android:inputType="textEmailAddress"
         android:hint="Email ID"
-        android:paddingLeft="10dp"/>
+        android:drawableLeft="@drawable/ic_email"
+        android:drawablePadding="10dp"/>
 
     <Button
         android:id="@+id/bt_save"
@@ -121,11 +125,11 @@
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="30dp"
-        android:background="@drawable/button_bg"
-        android:text="SAVE"
-        android:textColor="#075e54"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+        android:background="@drawable/button_bg2"
+        android:text="Save"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="18dp"/>
 
     <Button
         android:id="@+id/bt_cancel"
@@ -137,8 +141,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
         android:background="@drawable/button_bg"
-        android:text="CANCEL"
+        android:text="Cancel"
+        android:textAllCaps="false"
         android:textColor="#075e54"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+        android:textSize="18dp"/>
 </RelativeLayout>
