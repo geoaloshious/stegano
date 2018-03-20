@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context="com.example.geoaloshious.stegano.edit_profile">
+    tools:context="com.example.geoaloshious.stegano.edit_profile"
+    tools:ignore="Overdraw">
     <TextView
         android:id="@+id/tv_edit_profile"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/et_name"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="EDIT PROFILE"
+        android:layout_marginBottom="15dp"
+        android:text="@string/edit_profile"
         android:textAllCaps="true"
         android:textSize="35sp"
         android:textStyle="bold"
@@ -25,9 +26,9 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/et_name"
         android:layout_alignStart="@+id/et_name"
-        android:layout_marginTop="11dp"
-        android:layout_below="@id/et_name"
-        android:text="Gender"
+        android:layout_marginBottom="11dp"
+        android:layout_above="@id/et_dob"
+        android:text="@string/gender"
         android:textColor="@android:color/black"
         android:textStyle="bold" />
 
@@ -35,34 +36,31 @@
         android:id="@+id/et_name"
         android:layout_width="300dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/tv_edit_profile"
+        android:layout_above="@+id/tv_gender"
         android:drawableLeft="@drawable/ic_uname"
         android:drawablePadding="10dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="13dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/box_bg"
         android:ems="10"
-        android:hint="Name"
-        android:inputType="textCapWords"/>
+        android:hint="@string/name"
+        android:inputType="textCapWords" android:drawableStart="@drawable/ic_uname"/>
 
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/et_name"
+        android:layout_above="@+id/et_dob"
         android:layout_toRightOf="@+id/tv_gender"
-        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="15dp"
         android:orientation="horizontal"
-        android:id="@+id/rg_gender">
+        android:id="@+id/rg_gender" android:layout_toEndOf="@+id/tv_gender" android:layout_marginStart="15dp">
 
         <RadioButton
             android:id="@+id/rd_male"
             android:layout_width="72dp"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/rg_gender"
-            android:layout_alignStart="@+id/rg_gender"
-            android:layout_alignTop="@+id/rg_gender"
-            android:text="Male"
+            android:text="@string/male"
             android:textColor="@android:color/black"
             android:textStyle="bold" />
 
@@ -71,9 +69,9 @@
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:text="Female"
+            android:text="@string/female"
             android:textStyle="bold"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black" android:layout_marginStart="20dp" />
     </RadioGroup>
 
     <EditText
@@ -82,14 +80,15 @@
         android:layout_height="40dp"
         android:layout_alignLeft="@+id/tv_gender"
         android:layout_alignStart="@+id/tv_gender"
+        android:layout_centerVertical="true"
         android:drawableLeft="@drawable/ic_date"
         android:drawablePadding="10dp"
-        android:layout_below="@+id/rg_gender"
+
         android:layout_marginTop="5dp"
         android:background="@drawable/box_bg"
         android:ems="10"
-        android:hint="Date of birth   [dd/mm/yyyy]"
-        android:inputType="date"/>
+        android:hint="@string/date_of_birth_dd_mm_yyyy"
+        android:inputType="date" android:drawableStart="@drawable/ic_date" />
 
     <EditText
         android:id="@+id/et_phone"
@@ -103,8 +102,8 @@
         android:layout_marginTop="7dp"
         android:background="@drawable/box_bg"
         android:ems="10"
-        android:hint="Phone No."
-        android:inputType="phone"/>
+        android:hint="@string/phone_no"
+        android:inputType="phone" android:drawableStart="@drawable/ic_phone" />
 
     <EditText
         android:id="@+id/et_email"
@@ -118,8 +117,8 @@
         android:layout_marginTop="7dp"
         android:background="@drawable/box_bg"
         android:ems="10"
-        android:hint="Email ID"
-        android:inputType="textEmailAddress"/>
+        android:hint="@string/email_id"
+        android:inputType="textEmailAddress" android:drawableStart="@drawable/ic_email" />
 
     <Button
         android:id="@+id/bt_save"
@@ -127,12 +126,12 @@
         android:layout_height="35dp"
         android:layout_below="@id/et_email"
         android:layout_toRightOf="@id/bt_align"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/button_bg2"
-        android:text="Save"
+        android:text="@string/save"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:textSize="18dp"/>
+        android:textSize="18sp" android:layout_toEndOf="@id/bt_align"/>
     <Button
         android:id="@+id/bt_align"
         android:layout_width="40dp"
@@ -149,10 +148,10 @@
         android:layout_height="35dp"
         android:layout_below="@id/et_email"
         android:layout_toLeftOf="@id/bt_align"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/button_bg"
-        android:text="Cancel"
+        android:text="@string/cancel"
         android:textAllCaps="false"
         android:textColor="#075e54"
-        android:textSize="18dp"/>
+        android:textSize="18sp" android:layout_toStartOf="@id/bt_align"/>
 </RelativeLayout>

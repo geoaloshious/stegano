@@ -7,47 +7,47 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
-    TextView tv_name2,tv_gender2,tv_dob2,tv_phone2,tv_email2;
-    String name,dob,gender,email,phone,uname;
-    DBConnection db = new DBConnection(home.this);
-    boolean doubleBackToExitPressedOnce = false;
+    private String name;
+    private String dob;
+    private String gender;
+    private String email;
+    private String phone;
+    private String uname;
+    private DBConnection db = new DBConnection(home.this);
+    private boolean doubleBackToExitPressedOnce = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        tv_name2=(TextView)findViewById(R.id.tv_name2);
-        tv_gender2=(TextView)findViewById(R.id.tv_gender2);
-        tv_dob2=(TextView)findViewById(R.id.tv_dob2);
-        tv_phone2=(TextView)findViewById(R.id.tv_phone2);
-        tv_email2=(TextView)findViewById(R.id.tv_email2);
+        TextView tv_name2 = findViewById(R.id.tv_name2);
+        TextView tv_gender2 = findViewById(R.id.tv_gender2);
+        TextView tv_dob2 = findViewById(R.id.tv_dob2);
+        TextView tv_phone2 = findViewById(R.id.tv_phone2);
+        TextView tv_email2 = findViewById(R.id.tv_email2);
         String  sh_name ="MYDATA";
         SharedPreferences sh=getSharedPreferences(sh_name, Context.MODE_PRIVATE);
         uname = sh.getString("key1",null);
@@ -76,7 +76,7 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
     @Override
     public void onBackPressed()
     {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START))
         {
             drawer.closeDrawer(GravityCompat.START);
@@ -153,7 +153,7 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
                     }).setNegativeButton("no", null).show();
 
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

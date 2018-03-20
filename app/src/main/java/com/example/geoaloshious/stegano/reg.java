@@ -25,56 +25,59 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class reg extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener, SensorEventListener {
-    Switch stegano=null;
-    boolean swstate=false;
-    RelativeLayout rv_round;
-    RadioButton rd_male;
-    Button bt_ok,bt_signup;
-    TextView tv_signup;
-    RadioGroup rg_gender;
-    EditText et_name,et_dob,et_phone,et_email,et_uname,et_pwd,et_repwd;
-    String name,dob,gender="Male",email,uname,pwd,repwd,repwd_original,phone;
-    DBConnection db = new DBConnection(reg.this);
-    RecyclerView rv_sample;
+    private boolean swstate=false;
+    private RelativeLayout rv_round;
+    private Button bt_ok;
+    private TextView tv_signup;
+    private EditText et_name;
+    private EditText et_dob;
+    private EditText et_phone;
+    private EditText et_email;
+    private EditText et_uname;
+    private EditText et_pwd;
+    private EditText et_repwd;
+    private String gender="Male";
+    private String pwd;
+    private DBConnection db = new DBConnection(reg.this);
+    private RecyclerView rv_sample;
     private SensorManager mSensorManager;
     private Sensor mSensor;
-    Adapter1 adp;
-    List<Beanclass1> b;
-    int a[]=new int[10];
-    int i,i1,pos,flag=0,user_exists,empty_name=0,empty_phone=0,empty_uname=0,error_email=0,error_dob=0,empty_pwd=1;
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    String datePattern = "^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9][0-9][0-9])$";
+    private Adapter1 adp;
+    private int pos;
+    private int flag=0;
+    private int user_exists;
+    private int empty_pwd=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reg);
-        rv_sample=(RecyclerView)findViewById(R.id.rv_sample);
+        rv_sample= findViewById(R.id.rv_sample);
         rv_sample.setLayoutManager(new GridLayoutManager(this, 3));
         rv_sample.setVisibility(View.INVISIBLE);
         adp=new Adapter1(this);
-        b=new ArrayList<>();
-        rd_male=(RadioButton)findViewById(R.id.rd_male);
+        List<Beanclass1> b = new ArrayList<>();
+        RadioButton rd_male = findViewById(R.id.rd_male);
         rd_male.setChecked(true);
-        stegano=(Switch)findViewById(R.id.stegano);
+        Switch stegano = findViewById(R.id.stegano);
         stegano.setOnCheckedChangeListener(this);
-        rv_round=(RelativeLayout)findViewById(R.id.rv_round);
+        rv_round= findViewById(R.id.rv_round);
         rv_round.setVisibility(View.GONE);
-        bt_ok=(Button)findViewById(R.id.bt_ok);
+        bt_ok= findViewById(R.id.bt_ok);
         bt_ok.setOnClickListener(this);
-        bt_signup=(Button)findViewById(R.id.bt_signup);
+        Button bt_signup = findViewById(R.id.bt_signup);
         bt_signup.setOnClickListener(this);
-        et_pwd=(EditText)findViewById(R.id.et_pwd);
-        et_repwd=(EditText)findViewById(R.id.et_repwd);
+        et_pwd= findViewById(R.id.et_pwd);
+        et_repwd= findViewById(R.id.et_repwd);
         et_repwd.setFocusable(false);
-        et_name=(EditText)findViewById(R.id.et_name);
-        et_dob=(EditText)findViewById(R.id.et_dob);
-        et_phone=(EditText)findViewById(R.id.et_phone);
-        et_email=(EditText)findViewById(R.id.et_email);
-        et_uname=(EditText)findViewById(R.id.et_uname);
-        tv_signup=(TextView)findViewById(R.id.tv_signup);
+        et_name= findViewById(R.id.et_name);
+        et_dob= findViewById(R.id.et_dob);
+        et_phone= findViewById(R.id.et_phone);
+        et_email= findViewById(R.id.et_email);
+        et_uname= findViewById(R.id.et_uname);
+        tv_signup= findViewById(R.id.tv_signup);
         tv_signup.setVisibility(View.VISIBLE);
-        rg_gender=(RadioGroup)findViewById(R.id.rg_gender);
+        RadioGroup rg_gender = findViewById(R.id.rg_gender);
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         rg_gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -109,7 +112,7 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
     {
         if (event.values[0] == 0)
         {
-            if((flag==0)&&(swstate==true))
+            if((flag==0)&&(swstate))
             {
                 adp = new Adapter1(this);
                 adp.rand();
@@ -189,68 +192,75 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
                 }
                 break;
             case R.id.bt_signup:
-                name=et_name.getText().toString();
-                dob=et_dob.getText().toString();
-                phone=et_phone.getText().toString();
-                email=et_email.getText().toString();
-                uname=et_uname.getText().toString();
-                repwd=et_repwd.getText().toString();
+                String name = et_name.getText().toString();
+                String dob = et_dob.getText().toString();
+                String phone = et_phone.getText().toString();
+                String email = et_email.getText().toString();
+                String uname = et_uname.getText().toString();
+                String repwd = et_repwd.getText().toString();
                 if(swstate)
                 {
-                    repwd_original = convrt(repwd);
+                    String repwd_original = convrt(repwd);
                     repwd = repwd_original;
                 }
+                int empty_name = 0;
                 if(name.matches(""))
                 {
                     et_name.setText("");
                     et_name.setError("Enter name");
-                    empty_name=1;
+                    empty_name =1;
                 }
                 else
                 {
-                    empty_name=0;
+                    empty_name =0;
                 }
+                int empty_phone = 0;
                 if(phone.matches(""))
                 {
                     et_phone.setText("");
                     et_phone.setError("Enter phone no.");
-                    empty_phone=1;
+                    empty_phone =1;
                 }
                 else
                 {
-                    empty_phone=0;
+                    empty_phone =0;
                 }
+                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+                int error_email = 0;
                 if (email.matches(emailPattern))
                 {
-                    error_email=0;
+                    error_email =0;
                 }
                 else
                 {
                     et_email.setText("");
                     et_email.setError("Invalid email");
-                    error_email=1;
+                    error_email =1;
                 }
+                String datePattern = "^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9][0-9][0-9])$";
+                int error_dob = 0;
                 if (dob.matches(datePattern))
                 {
-                    error_dob=0;
+                    error_dob =0;
                 }
                 else
                 {
                     et_dob.setText("");
                     et_dob.setError("Invalid format");
-                    error_dob=1;
+                    error_dob =1;
                 }
+                int empty_uname = 0;
                 if(uname.matches(""))
                 {
                     et_uname.setText("");
                     et_uname.setError("Enter username");
-                    empty_uname=1;
+                    empty_uname =1;
                 }
                 else
                 {
-                    empty_uname=0;
+                    empty_uname =0;
                     db.openConnection();
-                    String query1= "select * from tbl_stegno where uname='"+uname+"'";
+                    String query1= "select * from tbl_stegno where uname='"+ uname +"'";
                     Cursor cursor = db.selectData(query1);
                     if(cursor.moveToNext())
                     {
@@ -264,7 +274,7 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
                 }
                 if(user_exists==0)
                 {
-                    if((error_email==0)&&(empty_name==0)&&(error_dob==0)&&(empty_phone==0)&&(empty_uname==0)&&(empty_pwd==0))
+                    if((error_email ==0)&&(empty_name ==0)&&(error_dob ==0)&&(empty_phone ==0)&&(empty_uname ==0)&&(empty_pwd==0))
                     {
                         if (pwd.equals(repwd))
                         {
@@ -292,19 +302,20 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
                 break;
         }
     }
-    public String convrt(String otp)
+    private String convrt(String otp)
     {
-        a=adp.b;
+        int[] a = adp.a;
         int a2[]=new int[otp.length()];
-        for(i=0;i<otp.length();i++)
+        int i;
+        for(i =0; i <otp.length(); i++)
         {
             int j=Character.digit(otp.charAt(i),10);
-            i1=0;
-            while(i1<a.length)
+            int i1 = 0;
+            while(i1 < a.length)
             {
                 if(a[i1]==j)
                 {
-                    pos=i1+1;
+                    pos= i1 +1;
                     if (pos==10)
                         pos=0;
                 }

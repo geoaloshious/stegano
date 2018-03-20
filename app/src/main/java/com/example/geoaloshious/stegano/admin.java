@@ -7,45 +7,41 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class admin extends AppCompatActivity implements View.OnClickListener {
-TextView tv1,tv2,tv3,tv4,tv5,tv6,tv7,tv8,tv9,tv10,tv11,tv12,tv13,tv14,tv15,tv16,tv17,tv18,tv19,tv20,tv_msg,tv_uname,tv_password;
-String uname,pass;
-Button bt_back;
-int i=1,k=1;
-    DBConnection db = new DBConnection(admin.this);
+    private int i=1;
+    private DBConnection db = new DBConnection(admin.this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
-        tv1=(TextView)findViewById(R.id.tv1);
-        tv2=(TextView)findViewById(R.id.tv2);
-        tv3=(TextView)findViewById(R.id.tv3);
-        tv4=(TextView)findViewById(R.id.tv4);
-        tv5=(TextView)findViewById(R.id.tv5);
-        tv6=(TextView)findViewById(R.id.tv6);
-        tv7=(TextView)findViewById(R.id.tv7);
-        tv8=(TextView)findViewById(R.id.tv8);
-        tv9=(TextView)findViewById(R.id.tv9);
-        tv10=(TextView)findViewById(R.id.tv10);
-        tv11=(TextView)findViewById(R.id.tv11);
-        tv12=(TextView)findViewById(R.id.tv12);
-        tv13=(TextView)findViewById(R.id.tv13);
-        tv14=(TextView)findViewById(R.id.tv14);
-        tv15=(TextView)findViewById(R.id.tv15);
-        tv16=(TextView)findViewById(R.id.tv16);
-        tv17=(TextView)findViewById(R.id.tv17);
-        tv18=(TextView)findViewById(R.id.tv18);
-        tv19=(TextView)findViewById(R.id.tv19);
-        tv20=(TextView)findViewById(R.id.tv20);
-        tv_msg=(TextView)findViewById(R.id.tv_msg);
+        TextView tv1 = findViewById(R.id.tv1);
+        TextView tv2 = findViewById(R.id.tv2);
+        TextView tv3 = findViewById(R.id.tv3);
+        TextView tv4 = findViewById(R.id.tv4);
+        TextView tv5 = findViewById(R.id.tv5);
+        TextView tv6 = findViewById(R.id.tv6);
+        TextView tv7 = findViewById(R.id.tv7);
+        TextView tv8 = findViewById(R.id.tv8);
+        TextView tv9 = findViewById(R.id.tv9);
+        TextView tv10 = findViewById(R.id.tv10);
+        TextView tv11 = findViewById(R.id.tv11);
+        TextView tv12 = findViewById(R.id.tv12);
+        TextView tv13 = findViewById(R.id.tv13);
+        TextView tv14 = findViewById(R.id.tv14);
+        TextView tv15 = findViewById(R.id.tv15);
+        TextView tv16 = findViewById(R.id.tv16);
+        TextView tv17 = findViewById(R.id.tv17);
+        TextView tv18 = findViewById(R.id.tv18);
+        TextView tv19 = findViewById(R.id.tv19);
+        TextView tv20 = findViewById(R.id.tv20);
+        TextView tv_msg = findViewById(R.id.tv_msg);
         tv_msg.setVisibility(View.GONE);
-        tv_uname=(TextView)findViewById(R.id.tv_uname);
+        TextView tv_uname = findViewById(R.id.tv_uname);
         tv_uname.setVisibility(View.GONE);
-        tv_password=(TextView)findViewById(R.id.tv_password);
+        TextView tv_password = findViewById(R.id.tv_password);
         tv_password.setVisibility(View.GONE);
-        bt_back=(Button)findViewById(R.id.bt_back);
+        Button bt_back = findViewById(R.id.bt_back);
         bt_back.setOnClickListener(this);
         db.openConnection();
         String query1= "select * from tbl_stegno";
@@ -57,8 +53,8 @@ int i=1,k=1;
             tv_password.setVisibility(View.VISIBLE);
             while(cursor.moveToNext())
             {
-                uname=cursor.getString(6);
-                pass=cursor.getString(7);
+                String uname = cursor.getString(6);
+                String pass = cursor.getString(7);
                 if(i==1)
                 {
                     tv1.setText(uname);
@@ -118,10 +114,6 @@ int i=1,k=1;
             tv_password.setVisibility(View.GONE);
             tv_msg.setVisibility(View.VISIBLE);
         }
-    }
-    public void assign_value(int i)
-    {
-
     }
     @Override
     public void onBackPressed()

@@ -14,9 +14,8 @@ import java.util.Random;
  */
 
 public class Adapter1 extends RecyclerView.Adapter<Adapter1.MyViewHolder> {
-    Context context;
+    private Context context;
     int a[] = {1,2,3,4,5,6,7,8,9,0};
-    int b[]=new int[10];
     public Adapter1(login login)
     {
         this.context=login;
@@ -38,10 +37,6 @@ public class Adapter1 extends RecyclerView.Adapter<Adapter1.MyViewHolder> {
             int temp = a[i];
             a[i] = a[randomPosition];
             a[randomPosition] = temp;
-        }
-        for(int j=0;j<a.length;j++)
-        {
-            b[j]=a[j];
         }
     }
     @Override
@@ -69,7 +64,7 @@ public class Adapter1 extends RecyclerView.Adapter<Adapter1.MyViewHolder> {
         public MyViewHolder(View itemView)
         {
             super(itemView);
-            tv_name=(TextView)itemView.findViewById(R.id.tv_name);
+            tv_name= itemView.findViewById(R.id.tv_name);
         }
     }
 }

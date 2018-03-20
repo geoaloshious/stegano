@@ -1,55 +1,44 @@
 package com.example.geoaloshious.stegano;
 
-import android.app.DatePickerDialog;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import java.util.Calendar;
-import java.util.RandomAccess;
-
 public class edit_profile extends AppCompatActivity implements View.OnClickListener
 {
-    Button bt_save,bt_cancel;
-    RadioGroup rg_gender;
-    RadioButton rd_male;
-    String name=null,dob=null,gender="Male",email=null,phone=null,uname=null;
-    EditText et_name,et_dob,et_email,et_phone;
-    int error_dob,error_email;
-    DBConnection db = new DBConnection(edit_profile.this);
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    String datePattern = "^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9][0-9][0-9])$";
+    private String gender="Male";
+    private EditText et_name;
+    private EditText et_dob;
+    private EditText et_email;
+    private EditText et_phone;
+    private int error_dob;
+    private int error_email;
+    private DBConnection db = new DBConnection(edit_profile.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-        bt_save=(Button)findViewById(R.id.bt_save);
+        Button bt_save = findViewById(R.id.bt_save);
         bt_save.setOnClickListener(this);
-        rd_male=(RadioButton)findViewById(R.id.rd_male);
+        RadioButton rd_male = findViewById(R.id.rd_male);
         rd_male.setChecked(true);
-        bt_cancel=(Button)findViewById(R.id.bt_cancel);
+        Button bt_cancel = findViewById(R.id.bt_cancel);
         bt_cancel.setOnClickListener(this);
-        et_name=(EditText)findViewById(R.id.et_name);
-        et_dob=(EditText)findViewById(R.id.et_dob);
-        et_email=(EditText)findViewById(R.id.et_email);
-        et_phone=(EditText)findViewById(R.id.et_phone);
-        rg_gender=(RadioGroup)findViewById(R.id.rg_gender);
+        et_name= findViewById(R.id.et_name);
+        et_dob= findViewById(R.id.et_dob);
+        et_email= findViewById(R.id.et_email);
+        et_phone= findViewById(R.id.et_phone);
+        RadioGroup rg_gender = findViewById(R.id.rg_gender);
         rg_gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
             @Override
@@ -80,15 +69,15 @@ public class edit_profile extends AppCompatActivity implements View.OnClickListe
             case R.id.bt_save:
                 String  sh_name ="MYDATA";
                 SharedPreferences sh=getSharedPreferences(sh_name, Context.MODE_PRIVATE);
-                uname = sh.getString("key1",null);
-                name=et_name.getText().toString();
-                dob=et_dob.getText().toString();
-                phone=et_phone.getText().toString();
-                email=et_email.getText().toString();
+                String uname = sh.getString("key1", null);
+                String name = et_name.getText().toString();
+                String dob = et_dob.getText().toString();
+                String phone = et_phone.getText().toString();
+                String email = et_email.getText().toString();
                 if(name.isEmpty())
                 {
                     db.openConnection();
-                    String query1= "select * from tbl_stegno where uname='"+uname+"'";
+                    String query1= "select * from tbl_stegno where uname='"+ uname +"'";
                     Cursor cursor1 = db.selectData(query1);
                     if(cursor1!=null)
                     {
@@ -102,19 +91,20 @@ public class edit_profile extends AppCompatActivity implements View.OnClickListe
                 if(dob.isEmpty())
                 {
                     db.openConnection();
-                    String query2= "select * from tbl_stegno where uname='"+uname+"'";
+                    String query2= "select * from tbl_stegno where uname='"+ uname +"'";
                     Cursor cursor2 = db.selectData(query2);
                     if(cursor2!=null)
                     {
                         if (cursor2.moveToNext())
                         {
-                            dob=cursor2.getString(3);
+                            dob =cursor2.getString(3);
                         }
                     }
                     db.closeConnection();
                 }
                 else
                 {
+                    String datePattern = "^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9][0-9][0-9])$";
                     if (dob.matches(datePattern))
                     {
                         error_dob=0;
@@ -129,13 +119,13 @@ public class edit_profile extends AppCompatActivity implements View.OnClickListe
                 if(phone.isEmpty())
                 {
                     db.openConnection();
-                    String query3= "select * from tbl_stegno where uname='"+uname+"'";
+                    String query3= "select * from tbl_stegno where uname='"+ uname +"'";
                     Cursor cursor3 = db.selectData(query3);
                     if(cursor3!=null)
                     {
                         if (cursor3.moveToNext())
                         {
-                            phone=cursor3.getString(4);
+                            phone =cursor3.getString(4);
                         }
                     }
                     db.closeConnection();
@@ -143,19 +133,20 @@ public class edit_profile extends AppCompatActivity implements View.OnClickListe
                 if(email.isEmpty())
                 {
                     db.openConnection();
-                    String query4= "select * from tbl_stegno where uname='"+uname+"'";
+                    String query4= "select * from tbl_stegno where uname='"+ uname +"'";
                     Cursor cursor4 = db.selectData(query4);
                     if(cursor4!=null)
                     {
                         if (cursor4.moveToNext())
                         {
-                            email=cursor4.getString(5);
+                            email =cursor4.getString(5);
                         }
                     }
                     db.closeConnection();
                 }
                 else
                 {
+                    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
                     if (email.matches(emailPattern))
                     {
                         error_email=0;

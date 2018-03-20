@@ -8,29 +8,27 @@ import android.database.sqlite.SQLiteOpenHelper;
 /**
  * Created by Geo Aloshious on 1/19/2018.
  */
-public class DBConnection extends SQLiteOpenHelper {
-
-
-        SQLiteDatabase sqLiteDb;
-        DBConnection(Context context)
-        {
-            super(context,"DB1",null,1);
-        }
+class DBConnection extends SQLiteOpenHelper
+{
+    private SQLiteDatabase sqLiteDb;
+    DBConnection(Context context)
+    {
+        super(context,"DB1",null,1);
+    }
     public void openConnection()
-        {
-            sqLiteDb = getWritableDatabase();
-        }
-        public  void closeConnection()
-        {
-            sqLiteDb.close();
-        }
+    {
+        sqLiteDb = getWritableDatabase();
+    }
+    public  void closeConnection()
+    {
+        sqLiteDb.close();
+    }
     public void onCreate(SQLiteDatabase db) {
 
         String query1 = "create table tbl_stegno(id INTEGER  PRIMARY  KEY AUTOINCREMENT, name  VARCHAR(20)  NOT  NULL, gender VARCHAR(20)  NOT  NULL, dob VARCHAR(20)  NOT  NULL, phone VARCHAR(20)  NOT  NULL, email VARCHAR(20)  NOT  NULL, uname VARCHAR(20)  NOT  NULL,password  VARCHAR(20)  NOT  NULL)";
         db.execSQL(query1);
     }
-
-    public boolean insertData(String query) //to execute INSERT, UPDATE, and 					//DELETE queries
+    public boolean insertData(String query) //to execute INSERT, UPDATE, and //DELETE queries
     {
         try
         {
@@ -53,7 +51,4 @@ public class DBConnection extends SQLiteOpenHelper {
     {
 
     }
-
 }
-
-

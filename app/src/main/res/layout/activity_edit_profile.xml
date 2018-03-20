@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context="com.example.geoaloshious.stegano.edit_profile">
+    tools:context="com.example.geoaloshious.stegano.edit_profile"
+    tools:ignore="Overdraw">
     <TextView
         android:id="@+id/tv_edit_profile"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="EDIT PROFILE"
+        android:text="@string/edit_profile"
         android:textAllCaps="true"
         android:textSize="35sp"
         android:textStyle="bold"
@@ -27,7 +27,7 @@
         android:layout_alignStart="@+id/et_name"
         android:layout_alignTop="@+id/rg_gender"
         android:layout_marginTop="6dp"
-        android:text="Gender"
+        android:text="@string/gender"
         android:textColor="@android:color/black"
         android:textStyle="bold" />
 
@@ -40,9 +40,9 @@
         android:layout_marginTop="100dp"
         android:ems="10"
         android:inputType="textCapWords"
-        android:hint="Name"
+        android:hint="@string/name"
         android:drawableLeft="@drawable/ic_uname"
-        android:drawablePadding="10dp"/>
+        android:drawablePadding="10dp" android:drawableStart="@drawable/ic_uname" />
 
     <RadioGroup
         android:layout_width="wrap_content"
@@ -52,16 +52,13 @@
         android:layout_marginTop="24dp"
         android:layout_marginLeft="15dp"
         android:orientation="horizontal"
-        android:id="@+id/rg_gender">
+        android:id="@+id/rg_gender" android:layout_toEndOf="@+id/tv_gender" android:layout_marginStart="15dp">
 
         <RadioButton
             android:id="@+id/rd_male"
             android:layout_width="72dp"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/rg_gender"
-            android:layout_alignStart="@+id/rg_gender"
-            android:layout_alignTop="@+id/rg_gender"
-            android:text="Male"
+            android:text="@string/male"
             android:textColor="@android:color/black"
             android:textStyle="bold" />
 
@@ -70,9 +67,9 @@
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:text="Female"
+            android:text="@string/female"
             android:textStyle="bold"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black" android:layout_marginStart="20dp" />
     </RadioGroup>
 
     <EditText
@@ -85,9 +82,9 @@
         android:layout_marginLeft="30dp"
         android:ems="10"
         android:inputType="date"
-        android:hint="Date of birth   [dd/mm/yyyy]"
+        android:hint="@string/date_of_birth_dd_mm_yyyy"
         android:drawableLeft="@drawable/ic_date"
-        android:drawablePadding="10dp"/>
+        android:drawablePadding="10dp" android:layout_marginStart="30dp" android:drawableStart="@drawable/ic_date" />
 
     <EditText
         android:id="@+id/et_phone"
@@ -98,9 +95,9 @@
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:inputType="phone"
-        android:hint="Phone No."
+        android:hint="@string/phone_no"
         android:drawableLeft="@drawable/ic_phone"
-        android:drawablePadding="10dp"/>
+        android:drawablePadding="10dp" android:drawableStart="@drawable/ic_phone" />
 
     <EditText
         android:id="@+id/et_email"
@@ -111,9 +108,9 @@
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:inputType="textEmailAddress"
-        android:hint="Email ID"
+        android:hint="@string/email_id"
         android:drawableLeft="@drawable/ic_email"
-        android:drawablePadding="10dp"/>
+        android:drawablePadding="10dp" android:drawableStart="@drawable/ic_email" />
 
     <Button
         android:id="@+id/bt_save"
@@ -126,10 +123,10 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/button_bg2"
-        android:text="Save"
+        android:text="@string/save"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:textSize="18dp"/>
+        android:textSize="18sp"/>
 
     <Button
         android:id="@+id/bt_cancel"
@@ -141,8 +138,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
         android:background="@drawable/button_bg"
-        android:text="Cancel"
+        android:text="@string/cancel"
         android:textAllCaps="false"
         android:textColor="#075e54"
-        android:textSize="18dp"/>
+        android:textSize="18sp"/>
 </RelativeLayout>

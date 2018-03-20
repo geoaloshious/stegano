@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:fitsSystemWindows="true"
-    tools:context="com.example.geoaloshious.stegano.reg">
+    tools:context="com.example.geoaloshious.stegano.reg"
+    tools:ignore="Overdraw">
 
     <RelativeLayout
         android:id="@+id/rv_round"
@@ -23,7 +23,7 @@
             android:layout_height="110dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
+            android:layout_marginTop="10dp" />
     </RelativeLayout>
     <TextView
         android:id="@+id/tv_signup"

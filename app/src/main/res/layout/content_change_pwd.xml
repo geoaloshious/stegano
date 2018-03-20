@@ -21,9 +21,9 @@
         android:layout_marginTop="40dp"
         android:ems="10"
         android:inputType="numberPassword"
-        android:hint="old password"
+        android:hint="@string/old_password"
         android:drawableLeft="@drawable/ic_oldpwd"
-        android:drawablePadding="10dp"/>
+        android:drawablePadding="10dp" android:drawableStart="@drawable/ic_oldpwd"/>
 
     <Button
         android:id="@+id/bt_ok_old"
@@ -34,7 +34,7 @@
         android:layout_alignEnd="@+id/et_old"
         android:layout_alignRight="@+id/et_old"
         android:background="@android:color/transparent"
-        android:text="OK"
+        android:text="@string/ok"
         android:textColor="#075e54" />
 
     <EditText
@@ -47,9 +47,9 @@
         android:layout_marginTop="30dp"
         android:ems="10"
         android:inputType="numberPassword"
-        android:hint="new password"
+        android:hint="@string/new_password"
         android:drawableLeft="@drawable/ic_password"
-        android:drawablePadding="10dp"/>
+        android:drawablePadding="10dp" android:drawableStart="@drawable/ic_password"/>
 
     <EditText
         android:id="@+id/et_renew"
@@ -62,9 +62,9 @@
         android:layout_marginTop="30dp"
         android:ems="10"
         android:inputType="numberPassword"
-        android:hint="retype password"
+        android:hint="@string/retype_password"
         android:drawableLeft="@drawable/ic_retype"
-        android:drawablePadding="10dp"/>
+        android:drawablePadding="10dp" android:drawableStart="@drawable/ic_retype"/>
 
     <Button
         android:id="@+id/bt_save"
@@ -76,10 +76,10 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/button_bg2"
-        android:text="Change Password"
+        android:text="@string/change_password2"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:textSize="18dp" />
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/bt_ok_new"
@@ -90,7 +90,7 @@
         android:layout_alignRight="@+id/et_new"
         android:layout_marginBottom="5dp"
         android:background="@android:color/transparent"
-        android:text="OK"
+        android:text="@string/ok"
         android:textColor="#075e54" />
 
     <Button
@@ -102,9 +102,9 @@
         android:layout_marginRight="30dp"
         android:layout_toLeftOf="@+id/bt_save"
         android:background="@drawable/button_bg"
-        android:text="Cancel"
+        android:text="@string/cancel"
         android:textAllCaps="false"
         android:textColor="#075e54"
-        android:textSize="18dp"/>
+        android:textSize="18sp" android:layout_toStartOf="@+id/bt_save" android:layout_marginEnd="30dp"/>
 </RelativeLayout>
 </android.support.v4.widget.NestedScrollView>

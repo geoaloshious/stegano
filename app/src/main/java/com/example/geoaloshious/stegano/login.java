@@ -3,7 +3,6 @@ package com.example.geoaloshious.stegano;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -25,42 +24,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class login extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener, SensorEventListener {
-    Switch stegano=null;
-    boolean swstate=false;
-    RelativeLayout rv_round;
-    Button bt_login,bt_signup;
-    EditText et_uname,et_pwd;
-    String uname,pwd,pass,adminu="admin",adminp="0000",pwd_original;
-    int flag=0;
-    DBConnection db = new DBConnection(login.this);
-    RecyclerView rv_sample;
+    private boolean swstate=false;
+    private RelativeLayout rv_round;
+    private EditText et_uname;
+    private EditText et_pwd;
+    private String pass;
+    private int flag=0;
+    private DBConnection db = new DBConnection(login.this);
+    private RecyclerView rv_sample;
     private SensorManager mSensorManager;
     private Sensor mSensor;
-    Adapter1 adp;
-    List<Beanclass1> b;
-    int a[]=new int[10];
-    int i,i1,pos,user_exists;
-    boolean doubleBackToExitPressedOnce = false;
+    private Adapter1 adp;
+    private int pos;
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        rv_sample=(RecyclerView)findViewById(R.id.rv_sample);
+        rv_sample= findViewById(R.id.rv_sample);
         rv_sample.setLayoutManager(new GridLayoutManager(this, 3));
         rv_sample.setVisibility(View.INVISIBLE);
         adp=new Adapter1(this);
-        b=new ArrayList<>();
-        stegano=(Switch)findViewById(R.id.stegano);
+        List<Beanclass1> b = new ArrayList<>();
+        Switch stegano = findViewById(R.id.stegano);
         stegano.setOnCheckedChangeListener(this);
-        rv_round=(RelativeLayout)findViewById(R.id.rv_round);
+        rv_round= findViewById(R.id.rv_round);
         rv_round.setVisibility(View.GONE);
-        bt_signup=(Button)findViewById(R.id.bt_signup);
+        Button bt_signup = findViewById(R.id.bt_signup);
         bt_signup.setOnClickListener(this);
-        bt_login=(Button)findViewById(R.id.bt_login);
+        Button bt_login = findViewById(R.id.bt_login);
         bt_login.setOnClickListener(this);
-        et_uname=(EditText)findViewById(R.id.et_uname);
-        et_pwd=(EditText)findViewById(R.id.et_pwd);
+        et_uname= findViewById(R.id.et_uname);
+        et_pwd= findViewById(R.id.et_pwd);
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
     }
@@ -82,7 +78,7 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
     {
         if (event.values[0] == 0)
         {
-            if((flag==0)&&(swstate==true))
+            if((flag==0)&&(swstate))
             {
                 adp = new Adapter1(this);
                 adp.rand();
@@ -119,8 +115,10 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
         switch(view.getId())
         {
             case R.id.bt_login:
-                uname=et_uname.getText().toString();
-                pwd=et_pwd.getText().toString();
+                String uname = et_uname.getText().toString();
+                String pwd = et_pwd.getText().toString();
+                String adminp = "0000";
+                String adminu = "admin";
                 if((uname.equals(adminu))&&(pwd.equals(adminp)))
                 {
                     Intent i2 = new Intent(login.this, admin.class);
@@ -131,20 +129,21 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
                 {
                     if(swstate)
                     {
-                        pwd_original = convrt(pwd);
-                        pwd=pwd_original;
+                        String pwd_original = convrt(pwd);
+                        pwd = pwd_original;
                     }
                     db.openConnection();
-                    String query1= "select * from tbl_stegno where uname='"+uname+"'";
+                    String query1= "select * from tbl_stegno where uname='"+ uname +"'";
                     Cursor cursor = db.selectData(query1);
+                    int user_exists;
                     if(cursor.moveToNext())
                     {
                         pass=cursor.getString(7);
-                        user_exists=1;
+                        user_exists =1;
                     }
                     else
                     {
-                        user_exists=0;
+                        user_exists =0;
                     }
                     db.closeConnection();
                     if (user_exists == 1)
@@ -154,8 +153,8 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
                             String  sh_name = "MYDATA";
                             SharedPreferences   sh= getSharedPreferences(sh_name , Context.MODE_PRIVATE);
                             SharedPreferences.Editor   editor = sh.edit();
-                            editor.putString("key1",uname);
-                            editor.commit();
+                            editor.putString("key1", uname);
+                            editor.apply();
                             Intent i1 = new Intent(login.this, home.class);
                             startActivity(i1);
                             Toast.makeText(login.this, "Logged In", Toast.LENGTH_SHORT).show();
@@ -180,19 +179,20 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
                 break;
         }
     }
-    public String convrt(String otp)
+    private String convrt(String otp)
     {
-        a=adp.b;
+        int[] a = adp.a;
         int a2[]=new int[otp.length()];
-        for(i=0;i<otp.length();i++)
+        int i;
+        for(i =0; i <otp.length(); i++)
         {
             int j=Character.digit(otp.charAt(i),10);
-            i1=0;
-            while(i1<a.length)
+            int i1 = 0;
+            while(i1 < a.length)
             {
                 if(a[i1]==j)
                 {
-                    pos=i1+1;
+                    pos= i1 +1;
                     if (pos==10)
                         pos=0;
                 }

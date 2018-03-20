@@ -8,9 +8,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:fullBackupContent="@xml/backup_descriptor">
         <activity android:name=".reg" />
-        <activity android:name=".login"></activity>
+        <activity android:name=".login" />
         <activity
             android:name=".home"
             android:label="Account" />
@@ -27,9 +28,9 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>2
+            </intent-filter>
         </activity>
-        <activity android:name=".admin"></activity>
+        <activity android:name=".admin" />
     </application>
 
 </manifest>
