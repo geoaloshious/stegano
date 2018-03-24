@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -26,7 +27,7 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
     private String email;
     private String phone;
     private String uname;
-    private DBConnection db = new DBConnection(home.this);
+    private final DBConnection db = new DBConnection(home.this);
     private boolean doubleBackToExitPressedOnce = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +106,7 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
     }
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item)
+    public boolean onNavigationItemSelected(@NonNull MenuItem item)
     {
         int id = item.getItemId();
 
@@ -126,6 +127,7 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
                             String query2= "delete from tbl_stegno where uname='"+uname+"'";
                             db.insertData(query2);
                             db.closeConnection();
+                            Toast.makeText(home.this, "Account deleted", Toast.LENGTH_SHORT).show();
                             Intent i2 = new Intent(home.this, login.class);
                             startActivity(i2);
                             finish();
@@ -146,6 +148,7 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
                     .setPositiveButton("yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(home.this, "Logged out", Toast.LENGTH_SHORT).show();
                             Intent i1 = new Intent(home.this, login.class);
                             startActivity(i1);
                             finish();

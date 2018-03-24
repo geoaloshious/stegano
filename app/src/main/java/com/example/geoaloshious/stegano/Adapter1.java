@@ -14,8 +14,8 @@ import java.util.Random;
  */
 
 public class Adapter1 extends RecyclerView.Adapter<Adapter1.MyViewHolder> {
-    private Context context;
-    int a[] = {1,2,3,4,5,6,7,8,9,0};
+    private final Context context;
+    final int[] a = {1,2,3,4,5,6,7,8,9,0};
     public Adapter1(login login)
     {
         this.context=login;
@@ -60,7 +60,7 @@ public class Adapter1 extends RecyclerView.Adapter<Adapter1.MyViewHolder> {
 
     public class MyViewHolder extends RecyclerView.ViewHolder
     {
-        TextView tv_name;
+        final TextView tv_name;
         public MyViewHolder(View itemView)
         {
             super(itemView);

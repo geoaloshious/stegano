@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class admin extends AppCompatActivity implements View.OnClickListener {
     private int i=1;
-    private DBConnection db = new DBConnection(admin.this);
+    private final DBConnection db = new DBConnection(admin.this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

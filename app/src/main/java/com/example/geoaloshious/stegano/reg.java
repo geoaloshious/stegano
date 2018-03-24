@@ -38,7 +38,7 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
     private EditText et_repwd;
     private String gender="Male";
     private String pwd;
-    private DBConnection db = new DBConnection(reg.this);
+    private final DBConnection db = new DBConnection(reg.this);
     private RecyclerView rv_sample;
     private SensorManager mSensorManager;
     private Sensor mSensor;
@@ -79,6 +79,7 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
         tv_signup.setVisibility(View.VISIBLE);
         RadioGroup rg_gender = findViewById(R.id.rg_gender);
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        assert mSensorManager != null;
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         rg_gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -178,8 +179,7 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
                     String pwd1=pwd;
                     if(swstate)
                     {
-                        String pwd2 = convrt(pwd);
-                        pwd=pwd2;
+                        pwd= convrt(pwd);
                     }
                     else
                     {
@@ -200,10 +200,9 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
                 String repwd = et_repwd.getText().toString();
                 if(swstate)
                 {
-                    String repwd_original = convrt(repwd);
-                    repwd = repwd_original;
+                    repwd = convrt(repwd);
                 }
-                int empty_name = 0;
+                int empty_name;
                 if(name.matches(""))
                 {
                     et_name.setText("");
@@ -214,7 +213,7 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
                 {
                     empty_name =0;
                 }
-                int empty_phone = 0;
+                int empty_phone;
                 if(phone.matches(""))
                 {
                     et_phone.setText("");
@@ -226,7 +225,7 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
                     empty_phone =0;
                 }
                 String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-                int error_email = 0;
+                int error_email;
                 if (email.matches(emailPattern))
                 {
                     error_email =0;
@@ -238,7 +237,7 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
                     error_email =1;
                 }
                 String datePattern = "^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9][0-9][0-9])$";
-                int error_dob = 0;
+                int error_dob;
                 if (dob.matches(datePattern))
                 {
                     error_dob =0;
@@ -249,7 +248,7 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
                     et_dob.setError("Invalid format");
                     error_dob =1;
                 }
-                int empty_uname = 0;
+                int empty_uname;
                 if(uname.matches(""))
                 {
                     et_uname.setText("");
@@ -328,8 +327,7 @@ public class reg extends AppCompatActivity implements CompoundButton.OnCheckedCh
         {
             strNum.append(num);
         }
-        String otp_converted=String.valueOf(strNum);
-        return otp_converted;
+        return String.valueOf(strNum);
     }
     @Override
     public void onBackPressed()

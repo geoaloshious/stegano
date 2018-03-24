@@ -3,7 +3,6 @@ package com.example.geoaloshious.stegano;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,9 +19,7 @@ public class edit_profile extends AppCompatActivity implements View.OnClickListe
     private EditText et_dob;
     private EditText et_email;
     private EditText et_phone;
-    private int error_dob;
-    private int error_email;
-    private DBConnection db = new DBConnection(edit_profile.this);
+    private final DBConnection db = new DBConnection(edit_profile.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,91 +71,53 @@ public class edit_profile extends AppCompatActivity implements View.OnClickListe
                 String dob = et_dob.getText().toString();
                 String phone = et_phone.getText().toString();
                 String email = et_email.getText().toString();
-                if(name.isEmpty())
+                int empty_name;
+                if(name.matches(""))
                 {
-                    db.openConnection();
-                    String query1= "select * from tbl_stegno where uname='"+ uname +"'";
-                    Cursor cursor1 = db.selectData(query1);
-                    if(cursor1!=null)
-                    {
-                        if (cursor1.moveToNext())
-                        {
-                            name = cursor1.getString(1);
-                        }
-                    }
-                    db.closeConnection();
-                }
-                if(dob.isEmpty())
-                {
-                    db.openConnection();
-                    String query2= "select * from tbl_stegno where uname='"+ uname +"'";
-                    Cursor cursor2 = db.selectData(query2);
-                    if(cursor2!=null)
-                    {
-                        if (cursor2.moveToNext())
-                        {
-                            dob =cursor2.getString(3);
-                        }
-                    }
-                    db.closeConnection();
+                    et_name.setText("");
+                    et_name.setError("Enter name");
+                    empty_name =1;
                 }
                 else
                 {
-                    String datePattern = "^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9][0-9][0-9])$";
-                    if (dob.matches(datePattern))
-                    {
-                        error_dob=0;
-                    }
-                    else
-                    {
-                        et_dob.setText("");
-                        et_dob.setError("Invalid format");
-                        error_dob=1;
-                    }
+                    empty_name =0;
                 }
-                if(phone.isEmpty())
+                int empty_phone;
+                if(phone.matches(""))
                 {
-                    db.openConnection();
-                    String query3= "select * from tbl_stegno where uname='"+ uname +"'";
-                    Cursor cursor3 = db.selectData(query3);
-                    if(cursor3!=null)
-                    {
-                        if (cursor3.moveToNext())
-                        {
-                            phone =cursor3.getString(4);
-                        }
-                    }
-                    db.closeConnection();
-                }
-                if(email.isEmpty())
-                {
-                    db.openConnection();
-                    String query4= "select * from tbl_stegno where uname='"+ uname +"'";
-                    Cursor cursor4 = db.selectData(query4);
-                    if(cursor4!=null)
-                    {
-                        if (cursor4.moveToNext())
-                        {
-                            email =cursor4.getString(5);
-                        }
-                    }
-                    db.closeConnection();
+                    et_phone.setText("");
+                    et_phone.setError("Enter phone no.");
+                    empty_phone =1;
                 }
                 else
                 {
-                    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-                    if (email.matches(emailPattern))
-                    {
-                        error_email=0;
-                    }
-                    else
-                    {
-                        et_email.setText("");
-                        et_email.setError("Invalid email");
-                        error_email=1;
-                    }
+                    empty_phone =0;
                 }
-                if((error_dob==0)&&(error_email==0))
+                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+                int error_email;
+                if (email.matches(emailPattern))
+                {
+                    error_email =0;
+                }
+                else
+                {
+                    et_email.setText("");
+                    et_email.setError("Invalid email");
+                    error_email =1;
+                }
+                String datePattern = "^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9][0-9][0-9])$";
+                int error_dob;
+                if (dob.matches(datePattern))
+                {
+                    error_dob =0;
+                }
+                else
+                {
+                    et_dob.setText("");
+                    et_dob.setError("Invalid format");
+                    error_dob =1;
+                }
+                if((error_email ==0)&&(empty_name ==0)&&(error_dob ==0)&&(empty_phone ==0))
                 {
                     db.openConnection();
                     String query2 = "update tbl_stegno set name='" + name + "',dob='" + dob + "',phone='" + phone + "',email='" + email + "',gender='" + gender + "' where uname='" + uname + "'";

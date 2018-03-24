@@ -30,7 +30,7 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
     private EditText et_pwd;
     private String pass;
     private int flag=0;
-    private DBConnection db = new DBConnection(login.this);
+    private final DBConnection db = new DBConnection(login.this);
     private RecyclerView rv_sample;
     private SensorManager mSensorManager;
     private Sensor mSensor;
@@ -58,6 +58,7 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
         et_uname= findViewById(R.id.et_uname);
         et_pwd= findViewById(R.id.et_pwd);
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        assert mSensorManager != null;
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
     }
     protected void onResume()
@@ -129,8 +130,7 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
                 {
                     if(swstate)
                     {
-                        String pwd_original = convrt(pwd);
-                        pwd = pwd_original;
+                        pwd = convrt(pwd);
                     }
                     db.openConnection();
                     String query1= "select * from tbl_stegno where uname='"+ uname +"'";
@@ -205,8 +205,7 @@ public class login extends AppCompatActivity implements CompoundButton.OnChecked
         {
             strNum.append(num);
         }
-        String otp_converted=String.valueOf(strNum);
-        return otp_converted;
+        return String.valueOf(strNum);
     }
     @Override
     public void onBackPressed()

@@ -35,7 +35,7 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
     private EditText et_new;
     private EditText et_renew;
     private TextView tv_change_pwd;
-    private DBConnection db = new DBConnection(change_pwd.this);
+    private final DBConnection db = new DBConnection(change_pwd.this);
     private String newpwd;
     private String db_pwd;
     private String uname;
@@ -78,6 +78,7 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
         tv_change_pwd= findViewById(R.id.tv_change_pwd);
         tv_change_pwd.setVisibility(View.VISIBLE);
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        assert mSensorManager != null;
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
     }
 
@@ -148,8 +149,7 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
                     empty_pwd =0;
                     if(swstate)
                     {
-                        String oldpwd_original = convrt(oldpwd);
-                        oldpwd = oldpwd_original;
+                        oldpwd = convrt(oldpwd);
                     }
                 }
                 if(empty_pwd ==0)
@@ -179,8 +179,7 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
                 {
                     if(swstate)
                     {
-                        String newpwd_original = convrt(newpwd);
-                        newpwd= newpwd_original;
+                        newpwd= convrt(newpwd);
                     }
                     et_renew.setFocusableInTouchMode(true);
                     et_renew.requestFocus();
@@ -193,8 +192,7 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
                 String renewpwd = et_renew.getText().toString();
                 if(swstate)
                 {
-                    String renewpwd_original = convrt(renewpwd);
-                    renewpwd = renewpwd_original;
+                    renewpwd = convrt(renewpwd);
                 }
                 if(newpwd.equals(renewpwd))
                 {
@@ -274,8 +272,7 @@ public class change_pwd extends AppCompatActivity implements CompoundButton.OnCh
         {
             strNum.append(num);
         }
-        String otp_converted=String.valueOf(strNum);
-        return otp_converted;
+        return String.valueOf(strNum);
     }
     @Override
     public void onBackPressed()
